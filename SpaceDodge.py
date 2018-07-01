@@ -155,95 +155,54 @@ def initialise_buttons():
                'Play'       :{'x'     : display_width    *(10/20),
                               'y'     : display_height   *(9 /20),
                               'width' : display_width    *(12/20),
-                              'height': display_height   *(2 /20),
-                              'action': single_play_loop                } ,
-               'Highscores' :{'x'     : display_width   *(7/20)-space_between_buttons/2,
+                              'height': display_height   *(2 /20)} ,
+               'Highscores' :{'x'     : display_width    *(7/20)-space_between_buttons/2,
                               'y'     : display_height   *(11/20)+2*space_between_buttons,
-                              'width' : display_width  *(6/20)-space_between_buttons,
-                              'height': display_width     *(2/20),
-                              'action': highscores_loop          } ,
-               'Credits'    :{'x'     : display_width  *(13/20)+space_between_buttons/2,
+                              'width' : display_width    *(6/20)-space_between_buttons,
+                              'height': display_width    *(2/20)} ,
+               'Credits'    :{'x'     : display_width    *(13/20)+space_between_buttons/2,
                               'y'     : display_height   *(11/20)+2*space_between_buttons,
-                              'width' : display_width  *(6/20)-space_between_buttons,
-                              'height': display_width     *(2/20),
-                              'action': credits_loop             } ,
-               'Easy'       :{'x'     : display_width   *(7/20)-space_between_buttons/2,
-                              'y'     : display_height    *(9/20),
-                              'width' : display_width  *(6/20)-space_between_buttons,
-                              'height': display_width     *(2/20),
-                              'action': game_loop                ,
-                              'numof_things':4                   } ,
-               'Normal'     :{'x'     : display_width  *(13/20)+space_between_buttons/2,
-                              'y'     : display_height    *(9/20),
-                              'width' : display_width  *(6/20)-space_between_buttons,
-                              'height': display_width     *(2/20),
-                              'action': game_loop                ,
-                              'numof_things':8                   } ,
+                              'width' : display_width    *(6/20)-space_between_buttons,
+                              'height': display_width    *(2/20)} ,
+               'Easy'       :{'x'     : display_width    *(7/20)-space_between_buttons/2,
+                              'y'     : display_height   *(9/20),
+                              'width' : display_width    *(6/20)-space_between_buttons,
+                              'height': display_width    *(2/20),
+                              'numof_things': 4 } ,
+               'Normal'     :{'x'     : display_width    *(13/20)+space_between_buttons/2,
+                              'y'     : display_height   *(9/20),
+                              'width' : display_width    *(6/20)-space_between_buttons,
+                              'height': display_width    *(2/20),
+                              'numof_things': 8 } ,
                'Hard'       :{'x'     : display_width   *(7/20)-space_between_buttons/2,
                               'y'     : display_height   *(11/20)+2*space_between_buttons,
                               'width' : display_width  *(6/20)-space_between_buttons,
                               'height': display_width     *(2/20),
-                              'action': game_loop                ,
-                              'numof_things':12                   } ,
+                              'numof_things': 12 } ,
                'Diabolical' :{'x'     : display_width  *(13/20)+space_between_buttons/2,
                               'y'     : display_height   *(11/20)+2*space_between_buttons,
                               'width' : display_width  *(6/20)-space_between_buttons,
                               'height': display_width     *(2/20),
-                              'action': game_loop                ,
-                              'numof_things':20                   } ,
-               'Easy_MP'       :{'x'     : display_width   *(7/20)-space_between_buttons/2,
-                              'y'     : display_height    *(9/20),
-                              'width' : display_width  *(6/20)-space_between_buttons,
-                              'height': display_width     *(2/20),
-                              'action': multiplayer_game_loop    ,
-                              'numof_things':4                   } ,
-               'Normal_MP'     :{'x'     : display_width  *(13/20)+space_between_buttons/2,
-                              'y'     : display_height    *(9/20),
-                              'width' : display_width  *(6/20)-space_between_buttons,
-                              'height': display_width     *(2/20),
-                              'action': multiplayer_game_loop    ,
-                              'numof_things':8                   } ,
-               'Hard_MP'       :{'x'     : display_width   *(7/20)-space_between_buttons/2,
-                              'y'     : display_height   *(11/20)+2*space_between_buttons,
-                              'width' : display_width  *(6/20)-space_between_buttons,
-                              'height': display_width     *(2/20),
-                              'action': multiplayer_game_loop    ,
-                              'numof_things':12                   } ,
-               'Diabolical_MP' :{'x'     : display_width  *(13/20)+space_between_buttons/2,
-                              'y'     : display_height   *(11/20)+2*space_between_buttons,
-                              'width' : display_width  *(6/20)-space_between_buttons,
-                              'height': display_width     *(2/20),
-                              'action': multiplayer_game_loop    ,
-                              'numof_things':20                   } ,
+                              'numof_things': 20 } ,
               'Instructions':{'x'     : display_width    *(7/20)-space_between_buttons/2,
                               'y'     : display_height   *(13/20)+4*space_between_buttons,
                               'width' : display_width    *(6/20)-space_between_buttons,
-                              'height': display_height   *(2 /20),
-                              'action': instructions_loop               } ,
+                              'height': display_height   *(2 /20)} ,
               'Multiplayer'  :{'x'     : display_width    *(13/20)+space_between_buttons/2,
                               'y'     : display_height   *(13/20)+4*space_between_buttons,
                               'width' : display_width    *(6/20)-space_between_buttons,
-                              'height': display_height   *(2 /20),
-                              'action': multi_play_loop               } }
+                              'height': display_height   *(2 /20)} }
     return buttons
 
-def create_button(x , y, width, height, colour = red, hover_colour = white, text = 'hello', text_colour = black, action = None, numof_things = False, multiplayer = False):
+def CreateButton(x , y, width, height, colour = red, hover_colour = white, text = 'hello', text_colour = black):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
     if x + width/2 > mouse[0] > x - width/2 and y + height/2 > mouse[1] > y - height/2:
         pygame.draw.rect(game_display, hover_colour, (x-width/2,y-height/2,width,height))
-        if click[0] == 1 and action != None:
+        if click[0] == 1:
             time.sleep(0.2)
-
-            if numof_things == False:
-                # For basic acions like "main menu", "Highscores", "Credits"
-                action()
-            elif multiplayer == True:
-                # For starting a single player game and needing to know the number of things
-                action(numof_things = numof_things)
-            else:
-                # For starting a single player game and needing to know the number of things
-                action(numof_things = numof_things)
+            # If the button has been clicked, return True so that when the function is called it can activate whatever action needs to be activated with whatever variables it needs!
+            return(True)
     else:
         pygame.draw.rect(game_display, colour, (x-width/2,y-height/2,width,height))
     message_display(text = text, position = (x,y), colour = text_colour)
@@ -259,36 +218,17 @@ def intro_loop(intro = True):
         game_display.fill(black)
         message_display(text = 'Space Dodge', position = title, text_size = 50)
 
-        create_button(x = buttons['Play']['x'],
-                              y = buttons['Play']['y'],
-                              width = buttons['Play']['width'],
-                              height = buttons['Play']['height'],
-                              text = 'Play',
-                              action = buttons['Play']['action'])
-        create_button(x = buttons['Highscores']['x'],
-                      y = buttons['Highscores']['y'],
-                      width = buttons['Highscores']['width'],
-                      height = buttons['Highscores']['height'],
-                      text = 'Highscores',
-                      action = buttons['Highscores']['action'])
-        create_button(x = buttons['Credits']['x'],
-                              y = buttons['Credits']['y'],
-                              width = buttons['Credits']['width'],
-                              height = buttons['Credits']['height'],
-                              text = 'Credits',
-                              action = buttons['Credits']['action'])
-        create_button(x = buttons['Instructions']['x'],
-                      y = buttons['Instructions']['y'],
-                      width = buttons['Instructions']['width'],
-                      height = buttons['Instructions']['height'],
-                      text = 'Instructions',
-                      action = buttons['Instructions']['action'])
-        create_button(x = buttons['Multiplayer']['x'],
-                      y = buttons['Multiplayer']['y'],
-                      width = buttons['Multiplayer']['width'],
-                      height = buttons['Multiplayer']['height'],
-                      text = 'Multiplayer',
-                      action = buttons['Multiplayer']['action'])
+        if CreateButton(x = buttons['Play']['x'], y = buttons['Play']['y'], width = buttons['Play']['width'], height = buttons['Play']['height'], text = 'Play'):
+            single_play_loop()
+        if CreateButton(x = buttons['Highscores']['x'], y = buttons['Highscores']['y'], width = buttons['Highscores']['width'], height = buttons['Highscores']['height'], text = 'Highscores'):
+            highscores_loop()
+        if CreateButton(x = buttons['Credits']['x'], y = buttons['Credits']['y'], width = buttons['Credits']['width'], height = buttons['Credits']['height'], text = 'Credits'):
+            credits_loop()
+        if CreateButton(x = buttons['Instructions']['x'], y = buttons['Instructions']['y'], width = buttons['Instructions']['width'], height = buttons['Instructions']['height'], text = 'Instructions'):
+            instructions_loop()
+        if CreateButton(x = buttons['Multiplayer']['x'], y = buttons['Multiplayer']['y'], width = buttons['Multiplayer']['width'], height = buttons['Multiplayer']['height'], text = 'Multiplayer'):
+            multi_play_loop()
+
 
         pygame.display.update()
         clock.tick(60)
@@ -317,116 +257,12 @@ def instructions_loop(instructions = True):
         message_display(text = 'Enter to play again', position = (display_width/2, display_height*(12/20)), text_size = 20)
         #message_display(text = 'Harley Taylor while tommy fiddle his diddle ', position = (display_width/2, display_height*(10.5/20)), text_size = 20)
 
-        create_button(buttons['Main Menu']['x'], buttons['Main Menu']['y'], buttons['Main Menu']['width'], buttons['Main Menu']['height'], text = 'Main Menu', action = buttons['Main Menu']['action'])
+        if CreateButton(buttons['Main Menu']['x'], buttons['Main Menu']['y'], buttons['Main Menu']['width'], buttons['Main Menu']['height'], text = 'Main Menu'):
+            intro_loop()
 
         pygame.display.update()
         clock.tick(60)
     instructions = False
-
-def single_play_loop(settings = True):
-    while settings == True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                save_scores(score_data)
-                quit()
-        game_display.fill(black)
-
-        message_display(text = 'Choose Difficulty', position = title, text_size = 50)
-
-        create_button(x = buttons['Easy']['x'],
-                      y = buttons['Easy']['y'],
-                      width = buttons['Easy']['width'],
-                      height = buttons['Easy']['height'],
-                      text = 'Easy',
-                      action = buttons['Easy']['action'],
-                      numof_things = buttons['Easy']['numof_things'])
-        create_button(x = buttons['Normal']['x'],
-                      y = buttons['Normal']['y'],
-                      width = buttons['Normal']['width'],
-                      height = buttons['Normal']['height'],
-                      text = 'Normal',
-                      action = buttons['Normal']['action'],
-                      numof_things = buttons['Normal']['numof_things'])
-        create_button(x = buttons['Hard']['x'],
-                      y = buttons['Hard']['y'],
-                      width = buttons['Hard']['width'],
-                      height = buttons['Hard']['height'],
-                      text = 'Hard',
-                      action = buttons['Hard']['action'],
-                      numof_things = buttons['Hard']['numof_things'])
-        create_button(x = buttons['Diabolical']['x'],
-                      y = buttons['Diabolical']['y'],
-                      width = buttons['Diabolical']['width'],
-                      height = buttons['Diabolical']['height'],
-                      text = 'Diabolical',
-                      action = buttons['Diabolical']['action'],
-                      numof_things = buttons['Diabolical']['numof_things'])
-
-        create_button(x = buttons['Main Menu']['x'],
-                      y = buttons['Main Menu']['y'],
-                      width = buttons['Main Menu']['width'],
-                      height = buttons['Main Menu']['height'],
-                      text = 'Main Menu',
-                      action = buttons['Main Menu']['action'])
-
-        pygame.display.update()
-        clock.tick(60)
-
-def multi_play_loop(settings = True):
-    while settings == True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                save_scores(score_data)
-                quit()
-        game_display.fill(black)
-
-        message_display(text = 'Choose Difficulty', position = title, text_size = 50)
-
-        create_button(x = buttons['Easy_MP']['x'],
-                      y = buttons['Easy_MP']['y'],
-                      width = buttons['Easy_MP']['width'],
-                      height = buttons['Easy_MP']['height'],
-                      text = 'Easy',
-                      action = buttons['Easy_MP']['action'],
-                      numof_things = buttons['Easy_MP']['numof_things'],
-                      multiplayer = True)
-        create_button(x = buttons['Normal_MP']['x'],
-                      y = buttons['Normal_MP']['y'],
-                      width = buttons['Normal_MP']['width'],
-                      height = buttons['Normal_MP']['height'],
-                      text = 'Normal',
-                      action = buttons['Normal_MP']['action'],
-                      numof_things = buttons['Normal_MP']['numof_things'],
-                      multiplayer = True)
-        create_button(x = buttons['Hard_MP']['x'],
-                      y = buttons['Hard_MP']['y'],
-                      width = buttons['Hard_MP']['width'],
-                      height = buttons['Hard_MP']['height'],
-                      text = 'Hard',
-                      action = buttons['Hard_MP']['action'],
-                      numof_things = buttons['Hard_MP']['numof_things'],
-                      multiplayer = True)
-        create_button(x = buttons['Diabolical_MP']['x'],
-                      y = buttons['Diabolical_MP']['y'],
-                      width = buttons['Diabolical_MP']['width'],
-                      height = buttons['Diabolical_MP']['height'],
-                      text = 'Diabolical',
-                      action = buttons['Diabolical_MP']['action'],
-                      numof_things = buttons['Diabolical_MP']['numof_things'],
-                      multiplayer = True)
-
-        create_button(x = buttons['Main Menu']['x'],
-                      y = buttons['Main Menu']['y'],
-                      width = buttons['Main Menu']['width'],
-                      height = buttons['Main Menu']['height'],
-                      text = 'Main Menu',
-                      action = buttons['Main Menu']['action'])
-
-        pygame.display.update()
-        clock.tick(60)
-
 def highscores_loop(highscore = True):
     while highscore == True:
         for event in pygame.event.get():
@@ -443,7 +279,8 @@ def highscores_loop(highscore = True):
             for number, score in enumerate(score_data[mode], start = 1):
                 message_display(text = str(score), position = (display_width*((5+3.25*n)/20),display_height*((13-number)/20)), text_size = 20)
 
-        create_button(buttons['Main Menu']['x'], buttons['Main Menu']['y'], buttons['Main Menu']['width'], buttons['Main Menu']['height'], text = 'Main Menu', action = buttons['Main Menu']['action'])
+        if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
+            intro_loop()
 
         pygame.display.update()
         clock.tick(60)
@@ -463,12 +300,66 @@ def credits_loop(credits = True):
         #message_display(text = 'Harley Taylor while tommy fiddle his diddle ', position = (display_width/2, display_height*(10.5/20)), text_size = 20)
         message_display(text = 'December 2017', position = (display_width/2, display_height*(11.5/20)), text_size = 20)
 
-        create_button(buttons['Main Menu']['x'], buttons['Main Menu']['y'], buttons['Main Menu']['width'], buttons['Main Menu']['height'], text = 'Main Menu', action = buttons['Main Menu']['action'])
+        if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
+            intro_loop()
 
         pygame.display.update()
         clock.tick(60)
 
-def gameover_loop(numof_things, score_data, post_game_message = '', gameover = True):
+def single_play_loop(settings = True):
+    while settings == True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                save_scores(score_data)
+                quit()
+        game_display.fill(black)
+
+        message_display(text = 'Choose Difficulty', position = title, text_size = 50)
+
+        if CreateButton(x = buttons['Easy']['x'], y = buttons['Easy']['y'], width = buttons['Easy']['width'], height = buttons['Easy']['height'], text = 'Easy'):
+            game_loop(numof_things = buttons['Easy']['numof_things'])
+        if CreateButton(x = buttons['Normal']['x'], y = buttons['Normal']['y'], width = buttons['Normal']['width'], height = buttons['Normal']['height'], text = 'Normal'):
+            game_loop(numof_things = buttons['Normal']['numof_things'])
+        if CreateButton(x = buttons['Hard']['x'], y = buttons['Hard']['y'], width = buttons['Hard']['width'], height = buttons['Hard']['height'], text = 'Hard'):
+            game_loop(numof_things = buttons['Hard']['numof_things'])
+        if CreateButton(x = buttons['Diabolical']['x'], y = buttons['Diabolical']['y'], width = buttons['Diabolical']['width'], height = buttons['Diabolical']['height'], text = 'Diabolical'):
+            game_loop(numof_things = buttons['Diabolical']['numof_things'])
+
+        if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
+            intro_loop()
+
+        pygame.display.update()
+        clock.tick(60)
+
+def multi_play_loop(settings = True):
+    while settings == True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                save_scores(score_data)
+                quit()
+        game_display.fill(black)
+
+        message_display(text = 'Choose Difficulty', position = title, text_size = 50)
+
+        if CreateButton(x = buttons['Easy']['x'], y = buttons['Easy']['y'], width = buttons['Easy']['width'], height = buttons['Easy']['height'], text = 'Easy'):
+            multiplayer_game_loop(numof_things = buttons['Easy']['numof_things'])
+        if CreateButton(x = buttons['Normal']['x'], y = buttons['Normal']['y'], width = buttons['Normal']['width'], height = buttons['Normal']['height'], text = 'Normal'):
+            multiplayer_game_loop(numof_things = buttons['Normal']['numof_things'])
+        if CreateButton(x = buttons['Hard']['x'], y = buttons['Hard']['y'], width = buttons['Hard']['width'], height = buttons['Hard']['height'], text = 'Hard'):
+            multiplayer_game_loop(numof_things = buttons['Hard']['numof_things'])
+        if CreateButton(x = buttons['Diabolical']['x'], y = buttons['Diabolical']['y'], width = buttons['Diabolical']['width'], height = buttons['Diabolical']['height'], text = 'Diabolical'):
+            multiplayer_game_loop(numof_things = buttons['Diabolical']['numof_things'])
+
+        if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
+            intro_loop()
+
+        pygame.display.update()
+        clock.tick(60)
+
+def gameover_loop(numof_things, score_data, post_game_message = ''):
+    gameover = True
     while gameover:
         message_display('Game Over', text_size = 50, position = title, colour = cyan)
 
@@ -476,11 +367,14 @@ def gameover_loop(numof_things, score_data, post_game_message = '', gameover = T
             pygame.draw.rect(game_display, black, (display_width*(6/20),display_height*(5.5/20),display_width*(6.5/20),display_height*(2/20)))
             message_display(post_game_message, text_size = 20, position = (display_width*(10/20),display_height*(6.5/20)), colour = yellow)
 
-        create_button(display_width/2, display_height*(4.5/10), display_height/2, display_width/10, text = 'Play Again (Enter)', action = game_loop, numof_things = numof_things)
+        if CreateButton(display_width/2, display_height*(4.5/10), display_height/2, display_width/10, text = 'Play Again (Enter)'):
+            game_loop(numof_things)
 
-        create_button(display_width/2, display_height*(6/10), display_width/2, display_width/10, text = 'Main Menu', action = intro_loop)
+        if CreateButton(display_width/2, display_height*(6/10), display_width/2, display_width/10, text = 'Main Menu'):
+            intro_loop()
 
         pygame.display.update()
+        clock.tick(60)
 
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -491,7 +385,8 @@ def gameover_loop(numof_things, score_data, post_game_message = '', gameover = T
                 quit()
                 exit_game == True
 
-def multiplayer_gameover_loop(numof_things, loser, gameover = True):
+def multiplayer_gameover_loop(numof_things, loser, multiplayer_lives):
+    gameover = True
     while gameover:
         message_display('Game Over', text_size = 50, position = title, colour = cyan)
 
@@ -501,16 +396,19 @@ def multiplayer_gameover_loop(numof_things, loser, gameover = True):
         elif loser == 1:
             message_display('Yellow Won!', text_size = 20, position = (display_width*(10/20),display_height*(6.5/20)), colour = yellow)
 
-        create_button(display_width/2, display_height*(4.5/10), display_height/2, display_width/10, text = 'Play Again (Enter)', action = multiplayer_game_loop, numof_things = numof_things)
+        if CreateButton(display_width/2, display_height*(4.5/10), display_height/2, display_width/10, text = 'Play Again (Enter)'):
+            multiplayer_game_loop(numof_things = numof_things, multiplayer_lives = multiplayer_lives)
 
-        create_button(display_width/2, display_height*(6/10), display_width/2, display_width/10, text = 'Main Menu', action = intro_loop)
+        if CreateButton(display_width/2, display_height*(6/10), display_width/2, display_width/10, text = 'Main Menu'):
+            intro_loop()
 
         pygame.display.update()
+        clock.tick(60)
 
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    multiplayer_game_loop(numof_things = numof_things)
+                    multiplayer_game_loop(numof_things = numof_things, multiplayer_lives = multiplayer_lives)
             if event.type == pygame.QUIT:
                 save_scores(score_data)
                 quit()
@@ -606,13 +504,17 @@ def game_loop(game_start_speed = 100, pause = False, game_over = False, paused_t
 
             elif pause == True:
                 message_display('Paused',50, position = ((display_width/2),(display_height/2)), colour = cyan)
-                create_button(buttons['Main Menu']['x'], buttons['Main Menu']['y'], buttons['Main Menu']['width'], buttons['Main Menu']['height'], text = 'Main Menu', action = buttons['Main Menu']['action'])
+                if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
+                    intro_loop()
                 pygame.display.update()
 
-def multiplayer_game_loop(game_start_speed = 100, pause = False, game_over = False, paused_time = 0, numof_things = 8, numof_players = 2):
+def multiplayer_game_loop(game_start_speed = 100, pause = False, game_over = False, paused_time = 0, numof_things = 8, multiplayer_lives = [10,10]):
     game_speed = game_start_speed
     start_time = time.time()
     exit_game = False
+
+    # Possiblity for more than 2 players in future
+    numof_players = 2
 
     all_things = range(0,numof_things)
     direction_list = ['up','down','left','right']
@@ -702,25 +604,35 @@ def multiplayer_game_loop(game_start_speed = 100, pause = False, game_over = Fal
                     if player_x[n] > display_width - player_width or player_x[n] < 0 or player_y[n] > display_height - player_height or player_y[n] < 0:
                         game_over = True
                         loser = n
-                        multiplayer_gameover_loop(numof_things = numof_things, loser = n)
+                        multiplayer_lives[n] -= 1
+                        multiplayer_gameover_loop(numof_things, loser, multiplayer_lives)
                     #Crash into things
                     for thing in all_things:
                         if player_x[n] - t['width'][thing] < t['x'][thing] and t['x'][thing] < player_x[n] + player_width and player_y[n] - t['height'][thing] < t['y'][thing] and t['y'][thing] < player_y[n] + player_height:
                             game_over = True
                             loser = n
-                            multiplayer_gameover_loop(numof_things = numof_things, loser = n)
+                            multiplayer_lives[n] -= 1
+                            multiplayer_gameover_loop(numof_things, loser, multiplayer_lives)
 
                 alive_time = round(current_time-start_time-paused_time,1)
                 clock.tick(game_speed)
                 game_speed = game_start_speed + 2*round(current_time-start_time-paused_time)
 
+                # Time Alive
                 message_display(str(alive_time), text_size = 20, position = ((display_width/2),(25)), colour = cyan)
+                # Game Speed
                 message_display(str(game_speed), text_size = 20, position = ((display_width/2),(50)), colour = cyan)
+                # Yellow Score
+                message_display(str(multiplayer_lives[0]), text_size = 20, position = ((25),(25)), colour = yellow)
+                # Blue Score
+                message_display(str(multiplayer_lives[1]), text_size = 20, position = ((display_width-25),(25)), colour = cyan)
+
                 pygame.display.update()
 
             elif pause == True:
                 message_display('Paused',50, position = ((display_width/2),(display_height/2)), colour = cyan)
-                create_button(buttons['Main Menu']['x'], buttons['Main Menu']['y'], buttons['Main Menu']['width'], buttons['Main Menu']['height'], text = 'Main Menu', action = buttons['Main Menu']['action'])
+                if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
+                    intro_loop()
                 pygame.display.update()
 
 
