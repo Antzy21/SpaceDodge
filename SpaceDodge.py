@@ -228,7 +228,7 @@ def MainMenu(intro = True):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                save_scores(score_data)
+                SaveScores(score_data)
                 quit()
 
         game_display.fill(black)
