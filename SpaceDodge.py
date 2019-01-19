@@ -115,6 +115,7 @@ def InitialiseThing(direction, height = 10, width = 10, speed = 2):
     delay = random.randrange(0, (display_width+display_height)/4)
     return x, y, height, width, speed, direction, delay
 def InitialiseThings(all_things):
+    direction_list = ['up','down','left','right']
     t = {'x':[],'y':[],'height':[],'width':[],'speed':[],'direction':[],'delay':[]}
     for thing in all_things:
         x, y, height, width, speed, direction, delay = InitialiseThing(direction_list[thing % 4])
@@ -501,9 +502,7 @@ def GameLoop(game_start_speed = 100, pause = False, game_over = False, paused_ti
     exit_game = False
 
     all_things = range(0,numof_things)
-    direction_list = ['up','down','left','right']
-
-    t = InitialiseThings(all_things,direction_list)
+    t = InitialiseThings(all_things)
 
     player_x = display_width * 0.5
     player_y = display_height * 0.5
@@ -598,9 +597,8 @@ def MultiplayerGameLoop(game_start_speed = 100, pause = False, game_over = False
     numof_players = 2
 
     all_things = range(0,numof_things)
-    direction_list = ['up','down','left','right']
 
-    t = InitialiseThings(all_things,direction_list)
+    t = InitialiseThings(all_things)
 
     player_x = []
     player_y = []
