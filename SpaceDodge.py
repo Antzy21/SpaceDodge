@@ -8,6 +8,16 @@
 # Die in less than 1 seconds: "I can't even"
 # View the credits 5 times: "Aww you care about me"
 
+# Credits:
+# Tommy, Harley, Zoe, Gemma
+
+# Highscore
+# Include names
+# left and right arrows to navigate through difficulties
+
+# Display highscores on death screens
+
+
 import pygame
 import time
 import random
