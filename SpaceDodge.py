@@ -215,7 +215,7 @@ def CreateButton(x , y, width, height, colour = red, hover_colour = white, text 
             return(True)
     else:
         pygame.draw.rect(game_display, colour, (x-width/2,y-height/2,width,height))
-    message_display(text = text, position = (x,y), colour = text_colour)
+    MessageDisplay(text = text, position = (x,y), colour = text_colour)
 
 def intro_loop(intro = True):
     while intro:
@@ -226,7 +226,7 @@ def intro_loop(intro = True):
                 quit()
 
         game_display.fill(black)
-        message_display(text = 'Space Dodge', position = title, text_size = 50)
+        MessageDisplay(text = 'Space Dodge', position = title, text_size = 50)
 
         if CreateButton(x = buttons['Play']['x'], y = buttons['Play']['y'], width = buttons['Play']['width'], height = buttons['Play']['height'], text = 'Play'):
             single_play_loop()
@@ -253,19 +253,19 @@ def instructions_loop(instructions = True):
                 quit()
 
         game_display.fill(black)
-        message_display(text = 'Instructions', position = title, text_size = 50)
+        MessageDisplay(text = 'Instructions', position = title, text_size = 50)
 
-        message_display(text = 'This is you:', position = (display_width*(9/20),display_height*(6/20)), text_size = 20)
+        MessageDisplay(text = 'This is you:', position = (display_width*(9/20),display_height*(6/20)), text_size = 20)
         game_display.blit(icon, (display_width*(12/20),display_height*(6/20)-17))
 
-        message_display(text = 'Avoid these:', position = (display_width*(9/20),display_height*(7.5/20)), text_size = 20)
+        MessageDisplay(text = 'Avoid these:', position = (display_width*(9/20),display_height*(7.5/20)), text_size = 20)
         pygame.draw.rect(game_display, white, [display_width*(12/20), display_height*(7.5/20)-17, 30, 30])
 
-        message_display(text = 'Arrow keys to move', position = (display_width/2,display_height*(9/20)), text_size = 20)
-        message_display(text = '(w,a,s,d for second player)', position = (display_width/2,display_height*(10/20)), text_size = 20)
-        message_display(text = 'Space bar to pause', position = (display_width/2,display_height*(11/20)), text_size = 20)
-        message_display(text = 'Enter to play again', position = (display_width/2, display_height*(12/20)), text_size = 20)
-        #message_display(text = 'Harley Taylor while tommy fiddle his diddle ', position = (display_width/2, display_height*(10.5/20)), text_size = 20)
+        MessageDisplay(text = 'Arrow keys to move', position = (display_width/2,display_height*(9/20)), text_size = 20)
+        MessageDisplay(text = '(w,a,s,d for second player)', position = (display_width/2,display_height*(10/20)), text_size = 20)
+        MessageDisplay(text = 'Space bar to pause', position = (display_width/2,display_height*(11/20)), text_size = 20)
+        MessageDisplay(text = 'Enter to play again', position = (display_width/2, display_height*(12/20)), text_size = 20)
+        #MessageDisplay(text = 'Harley Taylor while tommy fiddle his diddle ', position = (display_width/2, display_height*(10.5/20)), text_size = 20)
 
         if CreateButton(buttons['Main Menu']['x'], buttons['Main Menu']['y'], buttons['Main Menu']['width'], buttons['Main Menu']['height'], text = 'Main Menu'):
             intro_loop()
@@ -282,12 +282,12 @@ def highscores_loop(highscore = True):
                 quit()
         game_display.fill(black)
 
-        message_display(text = 'Highscores', position = title, text_size = 50)
+        MessageDisplay(text = 'Highscores', position = title, text_size = 50)
 
         for n, mode in enumerate(['Easy','Normal','Hard','Diabolical']):
-            message_display(text = mode, position = (display_width*((5+3.25*n)/20),display_height*(7/20)), text_size = 20)
+            MessageDisplay(text = mode, position = (display_width*((5+3.25*n)/20),display_height*(7/20)), text_size = 20)
             for number, score in enumerate(score_data[mode], start = 1):
-                message_display(text = str(score), position = (display_width*((5+3.25*n)/20),display_height*((13-number)/20)), text_size = 20)
+                MessageDisplay(text = str(score), position = (display_width*((5+3.25*n)/20),display_height*((13-number)/20)), text_size = 20)
 
         if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
             intro_loop()
@@ -303,12 +303,12 @@ def credits_loop(credits = True):
                 save_scores(score_data)
                 quit()
         game_display.fill(black)
-        message_display(text = 'Credits', position = title, text_size = 50)
-        message_display(text = 'Space Dodge', position = (display_width/2,display_height*(7.5/20)), text_size = 20)
-        message_display(text = 'Created on Python', position = (display_width/2,display_height*(8.5/20)), text_size = 20)
-        message_display(text = 'Anthony Dunford', position = (display_width/2, display_height*(10.5/20)), text_size = 20)
-        #message_display(text = 'Harley Taylor while tommy fiddle his diddle ', position = (display_width/2, display_height*(10.5/20)), text_size = 20)
-        message_display(text = 'December 2017', position = (display_width/2, display_height*(11.5/20)), text_size = 20)
+        MessageDisplay(text = 'Credits', position = title, text_size = 50)
+        MessageDisplay(text = 'Space Dodge', position = (display_width/2,display_height*(7.5/20)), text_size = 20)
+        MessageDisplay(text = 'Created on Python', position = (display_width/2,display_height*(8.5/20)), text_size = 20)
+        MessageDisplay(text = 'Anthony Dunford', position = (display_width/2, display_height*(10.5/20)), text_size = 20)
+        #MessageDisplay(text = 'Harley Taylor while tommy fiddle his diddle ', position = (display_width/2, display_height*(10.5/20)), text_size = 20)
+        MessageDisplay(text = 'December 2017', position = (display_width/2, display_height*(11.5/20)), text_size = 20)
 
         if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
             intro_loop()
@@ -325,7 +325,7 @@ def single_play_loop(settings = True):
                 quit()
         game_display.fill(black)
 
-        message_display(text = 'Choose Difficulty', position = title, text_size = 50)
+        MessageDisplay(text = 'Choose Difficulty', position = title, text_size = 50)
 
         if CreateButton(x = buttons['Easy']['x'], y = buttons['Easy']['y'], width = buttons['Easy']['width'], height = buttons['Easy']['height'], text = 'Easy'):
             game_loop(numof_things = buttons['Easy']['numof_things'])
@@ -351,7 +351,7 @@ def multi_play_loop(settings = True):
                 quit()
         game_display.fill(black)
 
-        message_display(text = 'Choose Difficulty', position = title, text_size = 50)
+        MessageDisplay(text = 'Choose Difficulty', position = title, text_size = 50)
 
         if CreateButton(x = buttons['Easy']['x'], y = buttons['Easy']['y'], width = buttons['Easy']['width'], height = buttons['Easy']['height'], text = 'Easy'):
             multiplayer_game_loop(numof_things = buttons['Easy']['numof_things'])
@@ -508,12 +508,12 @@ def game_loop(game_start_speed = 100, pause = False, game_over = False, paused_t
                 clock.tick(game_speed)
                 game_speed = game_start_speed + 2*round(current_time-start_time-paused_time)
 
-                message_display(str(alive_time), text_size = 20, position = ((25),(25)), colour = cyan)
-                message_display(str(game_speed), text_size = 20, position = ((display_width-25),(25)), colour = cyan)
+                MessageDisplay(str(alive_time), text_size = 20, position = ((25),(25)), colour = cyan)
+                MessageDisplay(str(game_speed), text_size = 20, position = ((display_width-25),(25)), colour = cyan)
                 pygame.display.update()
 
             elif pause == True:
-                message_display('Paused',50, position = ((display_width/2),(display_height/2)), colour = cyan)
+                MessageDisplay('Paused',50, position = ((display_width/2),(display_height/2)), colour = cyan)
                 if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
                     intro_loop()
                 pygame.display.update()
@@ -629,18 +629,18 @@ def multiplayer_game_loop(game_start_speed = 100, pause = False, game_over = Fal
                 game_speed = game_start_speed + 2*round(current_time-start_time-paused_time)
 
                 # Time Alive
-                message_display(str(alive_time), text_size = 20, position = ((display_width/2),(25)), colour = cyan)
+                MessageDisplay(str(alive_time), text_size = 20, position = ((display_width/2),(25)), colour = cyan)
                 # Game Speed
-                message_display(str(game_speed), text_size = 20, position = ((display_width/2),(50)), colour = cyan)
+                MessageDisplay(str(game_speed), text_size = 20, position = ((display_width/2),(50)), colour = cyan)
                 # Yellow Score
-                message_display(str(multiplayer_lives[0]), text_size = 20, position = ((25),(25)), colour = yellow)
+                MessageDisplay(str(multiplayer_lives[0]), text_size = 20, position = ((25),(25)), colour = yellow)
                 # Blue Score
-                message_display(str(multiplayer_lives[1]), text_size = 20, position = ((display_width-25),(25)), colour = cyan)
+                MessageDisplay(str(multiplayer_lives[1]), text_size = 20, position = ((display_width-25),(25)), colour = cyan)
 
                 pygame.display.update()
 
             elif pause == True:
-                message_display('Paused',50, position = ((display_width/2),(display_height/2)), colour = cyan)
+                MessageDisplay('Paused',50, position = ((display_width/2),(display_height/2)), colour = cyan)
                 if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
                     intro_loop()
                 pygame.display.update()
