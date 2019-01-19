@@ -382,12 +382,13 @@ def DifficultySelection(settings = True):
                 quit()
         game_display.fill(black)
 
-        MessageDisplay(text = 'Choose Difficulty', position = title, text_size = 50)
         # Have Things fly in background
         for thing in all_things:
             t['x'][thing], t['y'][thing], t['delay'][thing] = MoveThing(t['direction'][thing], t['x'][thing], t['y'][thing], t['height'][thing], t['width'][thing], t['speed'][thing], t['delay'][thing])
             DisplayThing(t['x'][thing], t['y'][thing], t['width'][thing], t['height'][thing], white)
 
+        MessageDisplay(text = 'Play', position = title, text_size = 50)
+        MessageDisplay(text = 'Choose Difficulty', text_size = 20, position = (display_width*(10/20),display_height*(6.5/20)))
 
         if CreateButton(x = buttons['Easy']['x'], y = buttons['Easy']['y'], width = buttons['Easy']['width'], height = buttons['Easy']['height'], text = 'Easy'):
             GameLoop(numof_things = buttons['Easy']['numof_things'])
@@ -418,12 +419,13 @@ def MultiplayerDifficultySelection(settings = True):
                 quit()
         game_display.fill(black)
 
-        MessageDisplay(text = 'Choose Difficulty', position = title, text_size = 50)
         # Have Things fly in background
         for thing in all_things:
             t['x'][thing], t['y'][thing], t['delay'][thing] = MoveThing(t['direction'][thing], t['x'][thing], t['y'][thing], t['height'][thing], t['width'][thing], t['speed'][thing], t['delay'][thing])
             DisplayThing(t['x'][thing], t['y'][thing], t['width'][thing], t['height'][thing], white)
 
+        MessageDisplay(text = 'Multiplayer', position = title, text_size = 50)
+        MessageDisplay(text = 'Choose Difficulty', text_size = 20, position = (display_width*(10/20),display_height*(6.5/20)))
 
         if CreateButton(x = buttons['Easy']['x'], y = buttons['Easy']['y'], width = buttons['Easy']['width'], height = buttons['Easy']['height'], text = 'Easy'):
             MultiplayerGameLoop(numof_things = buttons['Easy']['numof_things'])
