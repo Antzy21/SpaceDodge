@@ -218,6 +218,11 @@ def CreateButton(x , y, width, height, colour = red, hover_colour = white, text 
     MessageDisplay(text = text, position = (x,y), colour = text_colour)
 
 def MainMenu(intro = True):
+
+    # Initialise background things
+    all_things = range(0,20)
+    t = InitialiseThings(all_things)
+
     while intro:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -226,6 +231,12 @@ def MainMenu(intro = True):
                 quit()
 
         game_display.fill(black)
+
+        # Have Things fly in background
+        for thing in all_things:
+            t['x'][thing], t['y'][thing], t['delay'][thing] = MoveThing(t['direction'][thing], t['x'][thing], t['y'][thing], t['height'][thing], t['width'][thing], t['speed'][thing], t['delay'][thing])
+            DisplayThing(t['x'][thing], t['y'][thing], t['width'][thing], t['height'][thing], white)
+
         MessageDisplay(text = 'Space Dodge', position = title, text_size = 50)
 
         if CreateButton(x = buttons['Play']['x'], y = buttons['Play']['y'], width = buttons['Play']['width'], height = buttons['Play']['height'], text = 'Play'):
@@ -245,6 +256,10 @@ def MainMenu(intro = True):
     intro = False
 def Instructions(instructions = True):
 
+    # Initialise background things
+    all_things = range(0,20)
+    t = InitialiseThings(all_things)
+
     while instructions:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -253,6 +268,15 @@ def Instructions(instructions = True):
                 quit()
 
         game_display.fill(black)
+
+        # Have Things fly in background
+        for thing in all_things:
+            t['x'][thing], t['y'][thing], t['delay'][thing] = MoveThing(t['direction'][thing], t['x'][thing], t['y'][thing], t['height'][thing], t['width'][thing], t['speed'][thing], t['delay'][thing])
+            DisplayThing(t['x'][thing], t['y'][thing], t['width'][thing], t['height'][thing], white)
+
+        # Black backdrop so things dont obscure display of scores
+        pygame.draw.rect(game_display, black, [display_width*(4/20), display_height*(6/20), display_width*(12/20), display_height*(7/20)])
+
         MessageDisplay(text = 'Instructions', position = title, text_size = 50)
 
         MessageDisplay(text = 'This is you:', position = (display_width*(9/20),display_height*(6/20)), text_size = 20)
@@ -274,6 +298,11 @@ def Instructions(instructions = True):
         clock.tick(60)
     instructions = False
 def Highscores(highscore = True):
+
+    # Initialise background things
+    all_things = range(0,20)
+    t = InitialiseThings(all_things)
+
     while highscore == True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -281,6 +310,14 @@ def Highscores(highscore = True):
                 SaveScores(score_data)
                 quit()
         game_display.fill(black)
+
+        # Have Things fly in background
+        for thing in all_things:
+            t['x'][thing], t['y'][thing], t['delay'][thing] = MoveThing(t['direction'][thing], t['x'][thing], t['y'][thing], t['height'][thing], t['width'][thing], t['speed'][thing], t['delay'][thing])
+            DisplayThing(t['x'][thing], t['y'][thing], t['width'][thing], t['height'][thing], white)
+
+        # Black backdrop so things dont obscure display of scores
+        pygame.draw.rect(game_display, black, [display_width*(4/20), display_height*(6/20), display_width*(12/20), display_height*(7/20)])
 
         MessageDisplay(text = 'Highscores', position = title, text_size = 50)
 
@@ -296,6 +333,11 @@ def Highscores(highscore = True):
         clock.tick(60)
     highscore == False
 def Credits(credits = True):
+
+    # Initialise background things
+    all_things = range(0,20)
+    t = InitialiseThings(all_things)
+
     while credits:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -303,6 +345,15 @@ def Credits(credits = True):
                 SaveScores(score_data)
                 quit()
         game_display.fill(black)
+
+        # Have Things fly in background
+        for thing in all_things:
+            t['x'][thing], t['y'][thing], t['delay'][thing] = MoveThing(t['direction'][thing], t['x'][thing], t['y'][thing], t['height'][thing], t['width'][thing], t['speed'][thing], t['delay'][thing])
+            DisplayThing(t['x'][thing], t['y'][thing], t['width'][thing], t['height'][thing], white)
+
+        # Black backdrop so things dont obscure display of scores
+        pygame.draw.rect(game_display, black, [display_width*(6/20), display_height*(6/20), display_width*(8/20), display_height*(7/20)])
+
         MessageDisplay(text = 'Credits', position = title, text_size = 50)
         MessageDisplay(text = 'Space Dodge', position = (display_width/2,display_height*(7.5/20)), text_size = 20)
         MessageDisplay(text = 'Created on Python', position = (display_width/2,display_height*(8.5/20)), text_size = 20)
@@ -317,6 +368,11 @@ def Credits(credits = True):
         clock.tick(60)
 
 def DifficultySelection(settings = True):
+
+    # Initialise background things
+    all_things = range(0,20)
+    t = InitialiseThings(all_things)
+
     while settings == True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -326,6 +382,11 @@ def DifficultySelection(settings = True):
         game_display.fill(black)
 
         MessageDisplay(text = 'Choose Difficulty', position = title, text_size = 50)
+        # Have Things fly in background
+        for thing in all_things:
+            t['x'][thing], t['y'][thing], t['delay'][thing] = MoveThing(t['direction'][thing], t['x'][thing], t['y'][thing], t['height'][thing], t['width'][thing], t['speed'][thing], t['delay'][thing])
+            DisplayThing(t['x'][thing], t['y'][thing], t['width'][thing], t['height'][thing], white)
+
 
         if CreateButton(x = buttons['Easy']['x'], y = buttons['Easy']['y'], width = buttons['Easy']['width'], height = buttons['Easy']['height'], text = 'Easy'):
             GameLoop(numof_things = buttons['Easy']['numof_things'])
@@ -343,6 +404,11 @@ def DifficultySelection(settings = True):
         clock.tick(60)
 
 def MultiplayerDifficultySelection(settings = True):
+
+    # Initialise background things
+    all_things = range(0,20)
+    t = InitialiseThings(all_things)
+
     while settings == True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -352,6 +418,11 @@ def MultiplayerDifficultySelection(settings = True):
         game_display.fill(black)
 
         MessageDisplay(text = 'Choose Difficulty', position = title, text_size = 50)
+        # Have Things fly in background
+        for thing in all_things:
+            t['x'][thing], t['y'][thing], t['delay'][thing] = MoveThing(t['direction'][thing], t['x'][thing], t['y'][thing], t['height'][thing], t['width'][thing], t['speed'][thing], t['delay'][thing])
+            DisplayThing(t['x'][thing], t['y'][thing], t['width'][thing], t['height'][thing], white)
+
 
         if CreateButton(x = buttons['Easy']['x'], y = buttons['Easy']['y'], width = buttons['Easy']['width'], height = buttons['Easy']['height'], text = 'Easy'):
             MultiplayerGameLoop(numof_things = buttons['Easy']['numof_things'])
@@ -639,6 +710,7 @@ def MultiplayerGameLoop(game_start_speed = 100, pause = False, game_over = False
 
                 pygame.display.update()
 
+                
             elif pause == True:
                 MessageDisplay('Paused',50, position = ((display_width/2),(display_height/2)), colour = cyan)
                 if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
