@@ -442,62 +442,6 @@ def MultiplayerDifficultySelection(settings = True):
         pygame.display.update()
         clock.tick(60)
 
-def Gameover(numof_things, score_data, post_game_message = ''):
-    gameover = True
-    while gameover:
-        MessageDisplay('Game Over', text_size = 50, position = title, colour = cyan)
-
-        if post_game_message != '':
-            pygame.draw.rect(game_display, black, (display_width*(6/20),display_height*(5.5/20),display_width*(6.5/20),display_height*(2/20)))
-            MessageDisplay(post_game_message, text_size = 20, position = (display_width*(10/20),display_height*(6.5/20)), colour = yellow)
-
-        if CreateButton(display_width/2, display_height*(4.5/10), display_height/2, display_width/10, text = 'Play Again (Enter)'):
-            GameLoop(numof_things)
-
-        if CreateButton(display_width/2, display_height*(6/10), display_width/2, display_width/10, text = 'Main Menu'):
-            MainMenu()
-
-        pygame.display.update()
-        clock.tick(60)
-
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
-                    GameLoop(numof_things = numof_things)
-            if event.type == pygame.QUIT:
-                SaveScores(score_data)
-                quit()
-                exit_game == True
-
-    gameover = True
-    while gameover:
-        message_display('Game Over', text_size = 50, position = title, colour = cyan)
-def MultiplayerGameover(numof_things, loser, multiplayer_lives):
-
-        pygame.draw.rect(game_display, black, (display_width*(6/20),display_height*(5.5/20),display_width*(6.5/20),display_height*(2/20)))
-        if loser == 0:
-            MessageDisplay('Blue Won!', text_size = 20, position = (display_width*(10/20),display_height*(6.5/20)), colour = yellow)
-        elif loser == 1:
-            MessageDisplay('Yellow Won!', text_size = 20, position = (display_width*(10/20),display_height*(6.5/20)), colour = yellow)
-
-        if CreateButton(display_width/2, display_height*(4.5/10), display_height/2, display_width/10, text = 'Play Again (Enter)'):
-            MultiplayerGameLoop(numof_things = numof_things, multiplayer_lives = multiplayer_lives)
-
-        if CreateButton(display_width/2, display_height*(6/10), display_width/2, display_width/10, text = 'Main Menu'):
-            MainMenu()
-
-        pygame.display.update()
-        clock.tick(60)
-
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
-                    MultiplayerGameLoop(numof_things = numof_things, multiplayer_lives = multiplayer_lives)
-            if event.type == pygame.QUIT:
-                SaveScores(score_data)
-                quit()
-                exit_game == True
-
 def GameLoop(game_start_speed = 100, pause = False, game_over = False, paused_time = 0, numof_things = 8):
     game_speed = game_start_speed
     start_time = time.time()
@@ -717,6 +661,74 @@ def MultiplayerGameLoop(game_start_speed = 100, pause = False, game_over = False
                     MainMenu()
                 pygame.display.update()
 
+def Gameover(numof_things, score_data, post_game_message = ''):
+    gameover = True
+    while gameover:
+        MessageDisplay('Game Over', text_size = 50, position = title, colour = cyan)
+
+        if post_game_message != '':
+            pygame.draw.rect(game_display, black, (display_width*(6/20),display_height*(5.5/20),display_width*(6.5/20),display_height*(2/20)))
+            MessageDisplay(post_game_message, text_size = 20, position = (display_width*(10/20),display_height*(6.5/20)), colour = yellow)
+
+        if CreateButton(display_width/2, display_height*(4.5/10), display_height/2, display_width/10, text = 'Play Again (Enter)'):
+            GameLoop(numof_things)
+
+        if CreateButton(display_width/2, display_height*(6/10), display_width/2, display_width/10, text = 'Main Menu'):
+            MainMenu()
+
+        pygame.display.update()
+        clock.tick(60)
+
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    GameLoop(numof_things = numof_things)
+            if event.type == pygame.QUIT:
+                SaveScores(score_data)
+                quit()
+                exit_game == True
+
+def MultiplayerGameover(numof_things, loser, multiplayer_lives):
+
+    # If both players still have lives left
+    if multiplayer_lives[0]!= 0 and multiplayer_lives[1]!=0:
+        pygame.draw.rect(game_display, black, (display_width*(6/20),display_height*(5.5/20),display_width*(6.5/20),display_height*(2/20)))
+        if loser == 0:
+            MessageDisplay('Blue Won!', text_size = 20, position = (display_width*(10/20),display_height*(6.5/20)), colour = yellow)
+        elif loser == 1:
+            MessageDisplay('Yellow Won!', text_size = 20, position = (display_width*(10/20),display_height*(6.5/20)), colour = yellow)
+        time.sleep(1)
+        MultiplayerGameLoop(numof_things = numof_things, multiplayer_lives = multiplayer_lives)
+    gameover = True
+
+    while gameover:
+
+        MessageDisplay('Game Over', text_size = 50, position = title, colour = cyan)
+
+        if CreateButton(display_width/2, display_height*(4.5/10), display_height/2, display_width/10, text = 'Play Again (Enter)'):
+            print("here(button click)")
+            MultiplayerGameLoop(numof_things = numof_things, multiplayer_lives = [3,3])
+
+        if CreateButton(display_width/2, display_height*(6/10), display_width/2, display_width/10, text = 'Main Menu'):
+            MainMenu()
+
+        # Yellow Score
+        MessageDisplay(str(multiplayer_lives[0]), text_size = 20, position = ((25),(25)), colour = yellow)
+        # Blue
+        MessageDisplay(str(multiplayer_lives[1]), text_size = 20, position = ((display_width-25),(25)), colour = cyan)
+
+        pygame.display.update()
+        clock.tick(60)
+
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    print("here")
+                    MultiplayerGameLoop(numof_things = numof_things, multiplayer_lives = [3,3])
+            if event.type == pygame.QUIT:
+                SaveScores(score_data)
+                quit()
+                exit_game == True
 
 
 score_data = LoadScores()
