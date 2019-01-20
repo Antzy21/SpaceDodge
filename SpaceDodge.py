@@ -365,6 +365,8 @@ def Credits(credits = True):
         if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
             MainMenu()
 
+        MessageDisplay(text = 'Thank you Tommy, Harley, Zoe and Gemma', position = (display_width/2, display_height*(17/20)), text_size = 20)
+
         pygame.display.update()
         clock.tick(60)
 
