@@ -44,16 +44,15 @@ yellow = (255,255,0)
 # Create common message position
 title = (display_width*(10/20),display_height*(4/20))
 
-# Load up "Player 1" and details about "Player 1"
+# Load up players and details about players
 player_image = [pygame.image.load('star.png'), pygame.image.load('star2.png')]
-icon = pygame.image.load('starlogo.png')
 player_width = 11
 player_height = 11
 player_speed = 2
 
 # load up game icon
-game_icon = pygame.image.load('Starlogo.png')
-pygame.display.set_icon(game_icon)
+icon = pygame.image.load('starlogo.png')
+pygame.display.set_icon(icon)
 
 def LoadScores():
     score_data={'Easy':[],'Normal':[],'Hard':[],'Diabolical':[]}
