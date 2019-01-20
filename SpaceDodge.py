@@ -22,6 +22,7 @@ import pygame
 import time
 import random
 import math
+from enum import Enum
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -55,7 +56,7 @@ icon = pygame.image.load('starlogo.png')
 pygame.display.set_icon(icon)
 
 def LoadScores():
-    score_data={'Easy':[],'Normal':[],'Hard':[],'Diabolical':[]}
+    score_data=[ [], [], [], [] ]
     try:
         scoresheet = open("scoresheet.txt", 'r')
     except:
@@ -64,23 +65,28 @@ def LoadScores():
         scoresheet.write(score_string)
         scoresheet.close()
         scoresheet = open("scoresheet.txt", 'r')
-    for mode in ['Easy','Normal','Hard','Diabolical']:
+    for mode in Difficulty:
         for n in range(0,5):
             line = scoresheet.readline()
-            score_data[mode].append(float(line.strip()))
+            score_data[mode.value].append(float(line.strip()))
     scoresheet.close()
     return score_data
+class Difficulty(Enum):
+    Easy = 0
+    Normal = 1
+    Hard = 2
+    Diabolical = 3
 def SaveScores(score_data):
     scoresheet = open("scoresheet.txt", 'w')
     score_string = ''
-    for mode in ['Easy','Normal','Hard','Diabolical']:
+    for mode in Difficulty:
         for n in range(0,5):
-            score_string += str(score_data[mode][n])+'\n'
+            score_string += str(score_data[mode.value][n])+'\n'
     scoresheet.write(score_string)
 def RecordScores(score, number):
     new_highscore = False
-    modes = ['Easy','Normal','Hard','','Diabolical']
     n = int(number/4-1)
+    modes = [Difficulty.Easy.value, Difficulty.Normal.value, Difficulty.Hard.value, '', Difficulty.Diabolical.value]
     score_data[modes[n]].append(score)
     score_digits = len(score)-1
     score_data[modes[n]].sort(key = float)
@@ -297,7 +303,7 @@ def Instructions(instructions = True):
         pygame.display.update()
         clock.tick(60)
     instructions = False
-def Highscores(highscore = True, difficulty = 'Normal'):
+def Highscores(highscore = True, difficulty = Difficulty.Normal):
 
     # Initialise background things
     all_things = range(0,20)
@@ -320,9 +326,9 @@ def Highscores(highscore = True, difficulty = 'Normal'):
         pygame.draw.rect(game_display, black, [display_width*(4/20), display_height*(6/20), display_width*(12/20), display_height*(7/20)])
 
         MessageDisplay(text = 'Highscores', position = title, text_size = 50)
-        MessageDisplay(text = difficulty, text_size = 20, position = (display_width*(10/20),display_height*(6/20)))
+        MessageDisplay(text = difficulty.name, text_size = 20, position = (display_width*(10/20),display_height*(6/20)))
 
-        for number, score in enumerate(score_data[difficulty], start = 1):
+        for number, score in enumerate(score_data[difficulty.value], start = 1):
             MessageDisplay(text = str(score), position = (display_width*((8)/20),display_height*((13-1.1*number)/20)), text_size = 20)
 
         if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
