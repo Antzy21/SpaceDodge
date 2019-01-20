@@ -693,11 +693,12 @@ def MultiplayerGameover(numof_things, loser, multiplayer_lives):
 
     # If both players still have lives left
     if multiplayer_lives[0]!= 0 and multiplayer_lives[1]!=0:
-        pygame.draw.rect(game_display, black, (display_width*(6/20),display_height*(5.5/20),display_width*(6.5/20),display_height*(2/20)))
+        pygame.draw.rect(game_display, black, (display_width*(7/20),display_height*(5.5/20),display_width*(6/20),display_height*(2/20)))
         if loser == 0:
-            MessageDisplay('Blue Won!', text_size = 20, position = (display_width*(10/20),display_height*(6.5/20)), colour = yellow)
+            MessageDisplay('Blue Won!', text_size = 20, position = (display_width*(10/20),display_height*(6.5/20)), colour = cyan)
         elif loser == 1:
             MessageDisplay('Yellow Won!', text_size = 20, position = (display_width*(10/20),display_height*(6.5/20)), colour = yellow)
+        pygame.display.update()
         time.sleep(1)
         MultiplayerGameLoop(numof_things = numof_things, multiplayer_lives = multiplayer_lives)
     gameover = True
