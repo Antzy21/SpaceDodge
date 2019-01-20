@@ -298,7 +298,7 @@ def Instructions(instructions = True):
         pygame.display.update()
         clock.tick(60)
     instructions = False
-def Highscores(highscore = True):
+def Highscores(highscore = True, difficulty = 'Normal'):
 
     # Initialise background things
     all_things = range(0,20)
@@ -321,11 +321,10 @@ def Highscores(highscore = True):
         pygame.draw.rect(game_display, black, [display_width*(4/20), display_height*(6/20), display_width*(12/20), display_height*(7/20)])
 
         MessageDisplay(text = 'Highscores', position = title, text_size = 50)
+        MessageDisplay(text = difficulty, text_size = 20, position = (display_width*(10/20),display_height*(6/20)))
 
-        for n, mode in enumerate(['Easy','Normal','Hard','Diabolical']):
-            MessageDisplay(text = mode, position = (display_width*((5+3.25*n)/20),display_height*(7/20)), text_size = 20)
-            for number, score in enumerate(score_data[mode], start = 1):
-                MessageDisplay(text = str(score), position = (display_width*((5+3.25*n)/20),display_height*((13-number)/20)), text_size = 20)
+        for number, score in enumerate(score_data[difficulty], start = 1):
+            MessageDisplay(text = str(score), position = (display_width*((8)/20),display_height*((13-1.1*number)/20)), text_size = 20)
 
         if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
             MainMenu()
