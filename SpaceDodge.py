@@ -769,7 +769,6 @@ def MultiplayerGameover(difficulty, loser, multiplayer_lives):
         MessageDisplay('Game Over', text_size = 50, position = title, colour = cyan)
 
         if CreateButton(display_width/2, display_height*(4.5/10), display_height/2, display_width/10, text = 'Play Again (Enter)'):
-            print("here(button click)")
             MultiplayerGameLoop(difficulty = difficulty, multiplayer_lives = [3,3])
 
         if CreateButton(display_width/2, display_height*(6/10), display_width/2, display_width/10, text = 'Main Menu (Esc)'):
@@ -786,7 +785,6 @@ def MultiplayerGameover(difficulty, loser, multiplayer_lives):
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    print("here")
                     MultiplayerGameLoop(difficulty = difficulty, multiplayer_lives = [3,3])
                 if event.key == pygame.K_ESCAPE:
                     MainMenu()
