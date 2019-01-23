@@ -733,7 +733,7 @@ def Gameover(difficulty, score_data, post_game_message = ''):
         if CreateButton(display_width/2, display_height*(4.5/10), display_height/2, display_width/10, text = 'Play Again (Enter)'):
             GameLoop(difficulty = difficulty)
 
-        if CreateButton(display_width/2, display_height*(6/10), display_width/2, display_width/10, text = 'Main Menu'):
+        if CreateButton(display_width/2, display_height*(6/10), display_width/2, display_width/10, text = 'Main Menu (Esc)'):
             MainMenu()
 
         pygame.display.update()
@@ -743,6 +743,8 @@ def Gameover(difficulty, score_data, post_game_message = ''):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     GameLoop(difficulty = difficulty)
+                if event.key == pygame.K_ESCAPE:
+                    MainMenu()
             if event.type == pygame.QUIT:
                 SaveScores(score_data)
                 quit()
@@ -770,7 +772,7 @@ def MultiplayerGameover(difficulty, loser, multiplayer_lives):
             print("here(button click)")
             MultiplayerGameLoop(difficulty = difficulty, multiplayer_lives = [3,3])
 
-        if CreateButton(display_width/2, display_height*(6/10), display_width/2, display_width/10, text = 'Main Menu'):
+        if CreateButton(display_width/2, display_height*(6/10), display_width/2, display_width/10, text = 'Main Menu (Esc)'):
             MainMenu()
 
         # Yellow Score
@@ -786,6 +788,8 @@ def MultiplayerGameover(difficulty, loser, multiplayer_lives):
                 if event.key == pygame.K_RETURN:
                     print("here")
                     MultiplayerGameLoop(difficulty = difficulty, multiplayer_lives = [3,3])
+                if event.key == pygame.K_ESCAPE:
+                    MainMenu()
             if event.type == pygame.QUIT:
                 SaveScores(score_data)
                 quit()
