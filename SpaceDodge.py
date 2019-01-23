@@ -76,10 +76,31 @@ class Difficulties:
         else:
             raise StopIteration
         return self.n
+    def prev(self):
+        if self.i == self.hard:
+            self.i = self.normal
+        elif self.i == self.normal:
+            self.i = self.easy
+        elif self.i == self.diabolical:
+            self.i = self.hard
+        elif self.i == self.easy:
+            self.i = self.diabolical
+        return self.i
+    def next(self):
+        if self.i == self.easy:
+            self.i = self.normal
+        elif self.i == self.normal:
+            self.i = self.hard
+        elif self.i == self.hard:
+            self.i = self.diabolical
+        elif self.i == self.diabolical:
+            self.i = self.easy
+        return self.i
     easy = Difficulty(0,4,'Easy')
     normal = Difficulty(1,8,'Normal')
     hard = Difficulty(2,12,'Hard')
     diabolical = Difficulty(3,20,'Diabolical')
+    i = normal
 difficulties = Difficulties()
 
 def LoadScores():
@@ -195,6 +216,14 @@ def InitialiseButtons():
                'Highscores' :{'x'     : display_width    *(7/20)-space_between_buttons/2,
                               'y'     : display_height   *(11/20)+2*space_between_buttons,
                               'width' : display_width    *(6/20)-space_between_buttons,
+                              'height': display_width    *(2/20)} ,
+               'ScoreLeft'  :{'x'     : display_width    *(5/20),
+                              'y'     : display_height   *(9/20)+2*space_between_buttons,
+                              'width' : display_width    *(2/20),
+                              'height': display_width    *(2/20)} ,
+               'ScoreRight' :{'x'     : display_width    *(15/20),
+                              'y'     : display_height   *(9/20)+2*space_between_buttons,
+                              'width' : display_width    *(2/20),
                               'height': display_width    *(2/20)} ,
                'Credits'    :{'x'     : display_width    *(13/20)+space_between_buttons/2,
                               'y'     : display_height   *(11/20)+2*space_between_buttons,
@@ -319,7 +348,7 @@ def Instructions(instructions = True):
         pygame.display.update()
         clock.tick(60)
     instructions = False
-def Highscores(highscore = True, difficulty = difficulties.normal):
+def Highscores(highscore = True, highscore_difficulties = Difficulties()):
 
     # Initialise background things
     all_things = range(0,20)
@@ -342,10 +371,19 @@ def Highscores(highscore = True, difficulty = difficulties.normal):
         pygame.draw.rect(game_display, black, [display_width*(4/20), display_height*(6/20), display_width*(12/20), display_height*(7/20)])
 
         MessageDisplay(text = 'Highscores', position = title, text_size = 50)
-        MessageDisplay(text = difficulty.name, text_size = 20, position = (display_width*(10/20),display_height*(6/20)))
+        MessageDisplay(text = highscore_difficulties.i.name, text_size = 20, position = (display_width*(10/20),display_height*(6/20)))
 
-        for number, score in enumerate(score_data[difficulty.enum], start = 1):
+        for number, score in enumerate(score_data[highscore_difficulties.i.enum], start = 1):
             MessageDisplay(text = str(score), position = (display_width*((8)/20),display_height*((13-1.1*number)/20)), text_size = 20)
+
+        if highscore_difficulties.i !=  difficulties.easy:
+            if CreateButton(x = buttons['ScoreLeft']['x'], y = buttons['ScoreLeft']['y'], width = buttons['ScoreLeft']['width'], height = buttons['ScoreLeft']['height'], text = '<'):
+                highscore_difficulties.prev()
+                Highscores(highscore = True, highscore_difficulties = highscore_difficulties)
+        if highscore_difficulties.i !=  difficulties.diabolical:
+            if CreateButton(x = buttons['ScoreRight']['x'], y = buttons['ScoreRight']['y'], width = buttons['ScoreRight']['width'], height = buttons['ScoreRight']['height'], text = '>'):
+                highscore_difficulties.next()
+                Highscores(highscore = True, highscore_difficulties = highscore_difficulties)
 
         if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
             MainMenu()
