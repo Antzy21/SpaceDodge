@@ -215,75 +215,24 @@ def MoveThing(direction, x, y, w, h, speed, delay):
                 x = random.randrange(0,display_width-w)
             return x, y, delay
 
-def InitialiseButtons():
-    buttons = {'Main Menu'  :{'x'     : display_width    *(10/20),
-                              'y'     : display_height   *(13/20)+4*space_between_buttons,
-                              'width' : display_width    *(12/20),
-                              'height': display_height   *(2 /20),
-                              'action': MainMenu               } ,
-               'Play'       :{'x'     : display_width    *(10/20),
-                              'y'     : display_height   *(9 /20),
-                              'width' : display_width    *(12/20),
-                              'height': display_height   *(2 /20)} ,
-               'Highscores' :{'x'     : display_width    *(7/20)-space_between_buttons/2,
-                              'y'     : display_height   *(11/20)+2*space_between_buttons,
-                              'width' : display_width    *(6/20)-space_between_buttons,
-                              'height': display_width    *(2/20)} ,
-               'ScoreLeft'  :{'x'     : display_width    *(5/20),
-                              'y'     : display_height   *(9/20)+2*space_between_buttons,
-                              'y'     : display_height   *(9/20),
-                              'width' : display_width    *(2/20),
-                              'height': display_width    *(2/20)} ,
-               'ScoreRight' :{'x'     : display_width    *(15/20),
-                              'y'     : display_height   *(9/20),
-                              'width' : display_width    *(2/20),
-                              'height': display_width    *(2/20)} ,
-               'Credits'    :{'x'     : display_width    *(13/20)+space_between_buttons/2,
-                              'y'     : display_height   *(11/20)+2*space_between_buttons,
-                              'width' : display_width    *(6/20)-space_between_buttons,
-                              'height': display_width    *(2/20)} ,
-               'Easy'       :{'x'     : display_width    *(7/20)-space_between_buttons/2,
-                              'y'     : display_height   *(9/20),
-                              'width' : display_width    *(6/20)-space_between_buttons,
-                              'height': display_width    *(2/20)} ,
-               'Normal'     :{'x'     : display_width    *(13/20)+space_between_buttons/2,
-                              'y'     : display_height   *(9/20),
-                              'width' : display_width    *(6/20)-space_between_buttons,
-                              'height': display_width    *(2/20)} ,
-               'Hard'       :{'x'     : display_width   *(7/20)-space_between_buttons/2,
-                              'y'     : display_height   *(11/20)+2*space_between_buttons,
-                              'width' : display_width  *(6/20)-space_between_buttons,
-                              'height': display_width     *(2/20)} ,
-               'Diabolical' :{'x'     : display_width  *(13/20)+space_between_buttons/2,
-                              'y'     : display_height   *(11/20)+2*space_between_buttons,
-                              'width' : display_width  *(6/20)-space_between_buttons,
-                              'height': display_width     *(2/20)} ,
-              'Instructions':{'x'     : display_width    *(7/20)-space_between_buttons/2,
-                              'y'     : display_height   *(13/20)+4*space_between_buttons,
-                              'width' : display_width    *(6/20)-space_between_buttons,
-                              'height': display_height   *(2 /20)} ,
-              'Multiplayer' :{'x'     : display_width    *(13/20)+space_between_buttons/2,
-                              'y'     : display_height   *(13/20)+4*space_between_buttons,
-                              'width' : display_width    *(6/20)-space_between_buttons,
-                              'height': display_height   *(2 /20)} ,
-               'MPlay'      :{'x'     : display_width    *(10/20),
-                              'y'     : display_height   *(11/20)+2*space_between_buttons,
-                              'width' : display_width    *(12/20),
-                              'height': display_height   *(2 /20)} }
-    return buttons
-
-def CreateButton(x , y, width, height, colour = red, hover_colour = white, text = 'hello', text_colour = black):
+class Button:
+    def __init__(self, x, y, width, height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+def CreateButton(button, colour = red, hover_colour = white, text = 'hello', text_colour = black):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
-    if x + width/2 > mouse[0] > x - width/2 and y + height/2 > mouse[1] > y - height/2:
-        pygame.draw.rect(game_display, hover_colour, (x-width/2,y-height/2,width,height))
+    if button.x + button.width/2 > mouse[0] > button.x - button.width/2 and button.y + button.height/2 > mouse[1] > button.y - button.height/2:
+        pygame.draw.rect(game_display, hover_colour, (button.x-button.width/2,button.y-button.height/2,button.width,button.height))
         if click[0] == 1:
             time.sleep(0.2)
             # If the button has been clicked, return True so that when the function is called it can activate whatever action needs to be activated with whatever variables it needs!
             return(True)
     else:
-        pygame.draw.rect(game_display, colour, (x-width/2,y-height/2,width,height))
-    MessageDisplay(text = text, position = (x,y), colour = text_colour)
+        pygame.draw.rect(game_display, colour, (button.x-button.width/2,button.y-button.height/2,button.width,button.height))
+    MessageDisplay(text = text, position = (button.x, button.y), colour = text_colour)
 
 def MainMenu(intro = True):
 
@@ -307,15 +256,15 @@ def MainMenu(intro = True):
 
         MessageDisplay(text = 'Space Dodge', position = title, text_size = 50)
 
-        if CreateButton(x = buttons['Play']['x'], y = buttons['Play']['y'], width = buttons['Play']['width'], height = buttons['Play']['height'], text = 'Play'):
+        if CreateButton(button = PlayButton, text = 'Play'):
             DifficultySelection()
-        if CreateButton(x = buttons['Highscores']['x'], y = buttons['Highscores']['y'], width = buttons['Highscores']['width'], height = buttons['Highscores']['height'], text = 'Highscores'):
+        if CreateButton(button = HighscoreButton, text = 'Highscores'):
             Highscores()
-        if CreateButton(x = buttons['Credits']['x'], y = buttons['Credits']['y'], width = buttons['Credits']['width'], height = buttons['Credits']['height'], text = 'Credits'):
+        if CreateButton(button = CreditsButton, text = 'Credits'):
             Credits()
-        if CreateButton(x = buttons['Instructions']['x'], y = buttons['Instructions']['y'], width = buttons['Instructions']['width'], height = buttons['Instructions']['height'], text = 'Instructions'):
+        if CreateButton(button = InstructionsButton, text = 'Instructions'):
             Instructions()
-        if CreateButton(x = buttons['Multiplayer']['x'], y = buttons['Multiplayer']['y'], width = buttons['Multiplayer']['width'], height = buttons['Multiplayer']['height'], text = 'Multiplayer'):
+        if CreateButton(button = MultiplayerButton, text = 'Multiplayer'):
             MultiplayerDifficultySelection()
 
 
@@ -359,7 +308,7 @@ def Instructions(instructions = True):
         MessageDisplay(text = 'Enter to play again', position = (display_width/2, display_height*(12/20)), text_size = 20)
         #MessageDisplay(text = 'Harley Taylor while tommy fiddle his diddle ', position = (display_width/2, display_height*(10.5/20)), text_size = 20)
 
-        if CreateButton(buttons['Main Menu']['x'], buttons['Main Menu']['y'], buttons['Main Menu']['width'], buttons['Main Menu']['height'], text = 'Main Menu'):
+        if CreateButton(button = MainMenuButton, text = 'Main Menu'):
             MainMenu()
 
         pygame.display.update()
@@ -395,15 +344,15 @@ def Highscores(highscore = True, highscore_difficulties = Difficulties()):
             MessageDisplay(text = score.scorer, position = (display_width*((11)/20),display_height*((12-1.1*n)/20)), text_size = 20)
 
         if highscore_difficulties.i !=  difficulties.easy:
-            if CreateButton(x = buttons['ScoreLeft']['x'], y = buttons['ScoreLeft']['y'], width = buttons['ScoreLeft']['width'], height = buttons['ScoreLeft']['height'], text = '<'):
+            if CreateButton(button = ScoreLeftButton, text = '<'):
                 highscore_difficulties.prev()
                 Highscores(highscore = True, highscore_difficulties = highscore_difficulties)
         if highscore_difficulties.i !=  difficulties.diabolical:
-            if CreateButton(x = buttons['ScoreRight']['x'], y = buttons['ScoreRight']['y'], width = buttons['ScoreRight']['width'], height = buttons['ScoreRight']['height'], text = '>'):
+            if CreateButton(button = ScoreRightButton, text = '>'):
                 highscore_difficulties.next()
                 Highscores(highscore = True, highscore_difficulties = highscore_difficulties)
 
-        if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
+        if CreateButton(button = MainMenuButton, text = 'Main Menu'):
             MainMenu()
 
         pygame.display.update()
@@ -438,7 +387,7 @@ def Credits(credits = True):
         #MessageDisplay(text = 'Harley Taylor while tommy fiddle his diddle ', position = (display_width/2, display_height*(10.5/20)), text_size = 20)
         MessageDisplay(text = 'December 2017', position = (display_width/2, display_height*(11.5/20)), text_size = 20)
 
-        if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
+        if CreateButton(button = MainMenuButton, text = 'Main Menu'):
             MainMenu()
 
         MessageDisplay(text = 'Thank you Tommy, Harley, Zoe and Gemma', position = (display_width/2, display_height*(17/20)), text_size = 20)
@@ -469,17 +418,17 @@ def DifficultySelection(settings = True, singleplayer_difficulties = Difficultie
         MessageDisplay(text = 'Choose Difficulty', text_size = 20, position = (display_width*(10/20),display_height*(6.5/20)))
 
         if singleplayer_difficulties.i !=  difficulties.easy:
-            if CreateButton(x = buttons['ScoreLeft']['x'], y = buttons['ScoreLeft']['y'], width = buttons['ScoreLeft']['width'], height = buttons['ScoreLeft']['height'], text = '<'):
+            if CreateButton(button = ScoreLeftButton, text = '<'):
                 singleplayer_difficulties.prev()
         if singleplayer_difficulties.i !=  difficulties.diabolical:
-            if CreateButton(x = buttons['ScoreRight']['x'], y = buttons['ScoreRight']['y'], width = buttons['ScoreRight']['width'], height = buttons['ScoreRight']['height'], text = '>'):
+            if CreateButton(button = ScoreRightButton, text = '>'):
                 singleplayer_difficulties.next()
         MessageDisplay(text = singleplayer_difficulties.i.name, text_size= 20, position= (display_width*(10/20),display_height*(9/20)))
 
-        if CreateButton(x = buttons['MPlay']['x'], y = buttons['MPlay']['y'], width = buttons['MPlay']['width'], height = buttons['MPlay']['height'], text = 'Play'):
+        if CreateButton(button = MplayButton, text = 'Play'):
             GameLoop(difficulty = singleplayer_difficulties.i)
 
-        if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
+        if CreateButton(button = MainMenuButton, text = 'Main Menu'):
             MainMenu()
 
         pygame.display.update()
@@ -508,17 +457,17 @@ def MultiplayerDifficultySelection(settings = True, multiplayer_difficulties = D
         MessageDisplay(text = 'Choose Difficulty', text_size = 20, position = (display_width*(10/20),display_height*(6.5/20)))
 
         if multiplayer_difficulties.i !=  difficulties.easy:
-            if CreateButton(x = buttons['ScoreLeft']['x'], y = buttons['ScoreLeft']['y'], width = buttons['ScoreLeft']['width'], height = buttons['ScoreLeft']['height'], text = '<'):
+            if CreateButton(button = ScoreLeftButton, text = '<'):
                 multiplayer_difficulties.prev()
         if multiplayer_difficulties.i !=  difficulties.diabolical:
-            if CreateButton(x = buttons['ScoreRight']['x'], y = buttons['ScoreRight']['y'], width = buttons['ScoreRight']['width'], height = buttons['ScoreRight']['height'], text = '>'):
+            if CreateButton(button = ScoreRightButton, text = '>'):
                 multiplayer_difficulties.next()
         MessageDisplay(text = multiplayer_difficulties.i.name, text_size= 20, position= (display_width*(10/20),display_height*(9/20)))
 
-        if CreateButton(x = buttons['MPlay']['x'], y = buttons['MPlay']['y'], width = buttons['MPlay']['width'], height = buttons['MPlay']['height'], text = 'Play'):
+        if CreateButton(button = MultiplayerButton, text = 'Play'):
             MultiplayerGameLoop(difficulty = multiplayer_difficulties.i)
 
-        if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
+        if CreateButton(button = InstructionsButton, text = 'Main Menu'):
             MainMenu()
 
         pygame.display.update()
@@ -612,7 +561,7 @@ def GameLoop(game_start_speed = 100, pause = False, game_over = False, paused_ti
 
             elif pause == True:
                 MessageDisplay('Paused',50, position = ((display_width/2),(display_height/2)), colour = cyan)
-                if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
+                if CreateButton(button = MainMenuButton, text = 'Main Menu'):
                     MainMenu()
                 pygame.display.update()
 
@@ -739,7 +688,7 @@ def MultiplayerGameLoop(game_start_speed = 100, pause = False, game_over = False
 
             elif pause == True:
                 MessageDisplay('Paused',50, position = ((display_width/2),(display_height/2)), colour = cyan)
-                if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
+                if CreateButton(button = MainMenuButton, text = 'Main Menu'):
                     MainMenu()
                 pygame.display.update()
 
@@ -816,5 +765,19 @@ def MultiplayerGameover(difficulty, loser, multiplayer_lives):
                 exit_game == True
 
 score_data = LoadScores()
-buttons = InitialiseButtons()
+s = space_between_buttons
+MainMenuButton     = Button(display_width *(10/20),     display_height *(13/20)+4*s, display_width *(12/20),  display_height *(2 /20))
+PlayButton         = Button(display_width *(10/20),     display_height *(9 /20),     display_width *(12/20),  display_height *(2 /20))
+HighscoreButton   = Button(display_width *(7/20)-s/2,  display_height *(11/20)+2*s, display_width *(6/20)-s, display_width *(2/20))
+ScoreLeftButton    = Button(display_width *(5/20),      display_height *(9/20),      display_width *(2/20),   display_width *(2/20))
+ScoreRightButton   = Button(display_width *(15/20),     display_height *(9/20),      display_width *(2/20),   display_width *(2/20))
+CreditsButton      = Button(display_width *(13/20)+s/2, display_height *(11/20)+2*s, display_width *(6/20)-s, display_width *(2/20))
+EasyButton         = Button(display_width *(7/20)-s/2,  display_height *(9/20),      display_width *(6/20)-s, display_width *(2/20))
+NormalButton       = Button(display_width *(13/20)+s/2, display_height *(9/20),      display_width *(6/20)-s, display_width *(2/20))
+HardButton         = Button(display_width *(7/20)-s/2,  display_height *(11/20)+2*s, display_width *(6/20)-s, display_width *(2/20))
+DiabolicalButton   = Button(display_width *(13/20)+s/2, display_height *(11/20)+2*s, display_width *(6/20)-s, display_width *(2/20))
+InstructionsButton = Button(display_width *(7/20)-s/2,  display_height *(13/20)+4*s, display_width *(6/20)-s, display_height *(2 /20))
+MultiplayerButton  = Button(display_width *(13/20)+s/2, display_height *(13/20)+4*s, display_width *(6/20)-s, display_height *(2 /20))
+MplayButton        = Button(display_width *(10/20),     display_height *(11/20)+2*s, display_width *(12/20),  display_height *(2 /20))
+
 MainMenu()
