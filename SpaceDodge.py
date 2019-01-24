@@ -231,10 +231,11 @@ def InitialiseButtons():
                               'height': display_width    *(2/20)} ,
                'ScoreLeft'  :{'x'     : display_width    *(5/20),
                               'y'     : display_height   *(9/20)+2*space_between_buttons,
+                              'y'     : display_height   *(9/20),
                               'width' : display_width    *(2/20),
                               'height': display_width    *(2/20)} ,
                'ScoreRight' :{'x'     : display_width    *(15/20),
-                              'y'     : display_height   *(9/20)+2*space_between_buttons,
+                              'y'     : display_height   *(9/20),
                               'width' : display_width    *(2/20),
                               'height': display_width    *(2/20)} ,
                'Credits'    :{'x'     : display_width    *(13/20)+space_between_buttons/2,
@@ -266,7 +267,7 @@ def InitialiseButtons():
                               'width' : display_width    *(6/20)-space_between_buttons,
                               'height': display_height   *(2 /20)} ,
                'MPlay'      :{'x'     : display_width    *(10/20),
-                              'y'     : display_height   *(11/20),
+                              'y'     : display_height   *(11/20)+2*space_between_buttons,
                               'width' : display_width    *(12/20),
                               'height': display_height   *(2 /20)} }
     return buttons
@@ -445,7 +446,7 @@ def Credits(credits = True):
         pygame.display.update()
         clock.tick(60)
 
-def DifficultySelection(settings = True):
+def DifficultySelection(settings = True, singleplayer_difficulties = Difficulties()):
 
     # Initialise background things
     all_things = range(0,20)
@@ -467,14 +468,16 @@ def DifficultySelection(settings = True):
         MessageDisplay(text = 'Play', position = title, text_size = 50)
         MessageDisplay(text = 'Choose Difficulty', text_size = 20, position = (display_width*(10/20),display_height*(6.5/20)))
 
-        if CreateButton(x = buttons['Easy']['x'], y = buttons['Easy']['y'], width = buttons['Easy']['width'], height = buttons['Easy']['height'], text = 'Easy'):
-            GameLoop(difficulty = Difficulties.easy)
-        if CreateButton(x = buttons['Normal']['x'], y = buttons['Normal']['y'], width = buttons['Normal']['width'], height = buttons['Normal']['height'], text = 'Normal'):
-            GameLoop(difficulty = Difficulties.normal)
-        if CreateButton(x = buttons['Hard']['x'], y = buttons['Hard']['y'], width = buttons['Hard']['width'], height = buttons['Hard']['height'], text = 'Hard'):
-            GameLoop(difficulty = Difficulties.hard)
-        if CreateButton(x = buttons['Diabolical']['x'], y = buttons['Diabolical']['y'], width = buttons['Diabolical']['width'], height = buttons['Diabolical']['height'], text = 'Diabolical'):
-            GameLoop(difficulty = Difficulties.diabolical)
+        if singleplayer_difficulties.i !=  difficulties.easy:
+            if CreateButton(x = buttons['ScoreLeft']['x'], y = buttons['ScoreLeft']['y'], width = buttons['ScoreLeft']['width'], height = buttons['ScoreLeft']['height'], text = '<'):
+                singleplayer_difficulties.prev()
+        if singleplayer_difficulties.i !=  difficulties.diabolical:
+            if CreateButton(x = buttons['ScoreRight']['x'], y = buttons['ScoreRight']['y'], width = buttons['ScoreRight']['width'], height = buttons['ScoreRight']['height'], text = '>'):
+                singleplayer_difficulties.next()
+        MessageDisplay(text = singleplayer_difficulties.i.name, text_size= 20, position= (display_width*(10/20),display_height*(9/20)))
+
+        if CreateButton(x = buttons['MPlay']['x'], y = buttons['MPlay']['y'], width = buttons['MPlay']['width'], height = buttons['MPlay']['height'], text = 'Play'):
+            GameLoop(difficulty = singleplayer_difficulties.i)
 
         if CreateButton(x = buttons['Main Menu']['x'], y = buttons['Main Menu']['y'], width = buttons['Main Menu']['width'], height = buttons['Main Menu']['height'], text = 'Main Menu'):
             MainMenu()
@@ -510,7 +513,7 @@ def MultiplayerDifficultySelection(settings = True, multiplayer_difficulties = D
         if multiplayer_difficulties.i !=  difficulties.diabolical:
             if CreateButton(x = buttons['ScoreRight']['x'], y = buttons['ScoreRight']['y'], width = buttons['ScoreRight']['width'], height = buttons['ScoreRight']['height'], text = '>'):
                 multiplayer_difficulties.next()
-        MessageDisplay(text = multiplayer_difficulties.i.name, text_size= 20, position= (display_width*(10/20),display_height*(8.5/20)))
+        MessageDisplay(text = multiplayer_difficulties.i.name, text_size= 20, position= (display_width*(10/20),display_height*(9/20)))
 
         if CreateButton(x = buttons['MPlay']['x'], y = buttons['MPlay']['y'], width = buttons['MPlay']['width'], height = buttons['MPlay']['height'], text = 'Play'):
             MultiplayerGameLoop(difficulty = multiplayer_difficulties.i)
