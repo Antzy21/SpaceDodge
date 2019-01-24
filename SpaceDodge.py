@@ -23,6 +23,7 @@ import time
 import random
 import math
 from enum import Enum
+import re
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -55,6 +56,10 @@ player_speed = 2
 icon = pygame.image.load('starlogo.png')
 pygame.display.set_icon(icon)
 
+class Highscore:
+    def __init__(self, score, name):
+        self.score = score
+        self.scorer = name
 class Difficulty:
     def __init__(self, enum, number_of_things, name):
         self.enum = enum
@@ -114,27 +119,34 @@ def LoadScores():
         scoresheet.close()
         scoresheet = open("scoresheet.txt", 'r')
     for mode in difficulties:
+        mode.highscore = []
         for n in range(0,5):
-            line = scoresheet.readline()
-            score_data[mode.enum].append(float(line.strip()))
+            line = scoresheet.readline().strip()
+            x = re.split("\s",line,1)
+            score = float(x[0])
+            name = x[1]
+            score_data[mode.enum].append(score)
+            mode.highscore.append(Highscore(score, name))
     scoresheet.close()
     return score_data
 def SaveScores(score_data):
     scoresheet = open("scoresheet.txt", 'w')
     score_string = ''
     for mode in Difficulties():
-        for n in range(0,5):
-            score_string += str(score_data[mode.enum][n])+'\n'
+        for score in mode.highscore:
+            score_string += str(score.score) + ' ' + score.scorer + '\n'
     scoresheet.write(score_string)
 def RecordScores(score, difficulty):
     new_highscore = False
-    score_data[difficulty.enum].append(score)
-    score_digits = len(score)-1
-    score_data[difficulty.enum].sort(key = float)
-    score_data[difficulty.enum].pop(0)
+    difficulty.highscore.append(Highscore(float(score),'Z'))
+    print(difficulty.highscore)
+    difficulty.highscore.sort(key = lambda score : score.score)
+    print(difficulty.highscore)
+    difficulty.highscore.pop(0)
+    print(difficulty.highscore)
     if score_data[difficulty.enum][-2] == float(score):
         new_highscore = True
-    return score_data, new_highscore
+    return new_highscore
 
 def MessageDisplay(text = '"insert text"',text_size = 20, position = (display_width/2,display_height/2), colour = white):
     largeText = pygame.font.Font('freesansbold.ttf',text_size)
@@ -377,8 +389,9 @@ def Highscores(highscore = True, highscore_difficulties = Difficulties()):
         MessageDisplay(text = 'Highscores', position = title, text_size = 50)
         MessageDisplay(text = highscore_difficulties.i.name, text_size = 20, position = (display_width*(10/20),display_height*(6/20)))
 
-        for number, score in enumerate(score_data[highscore_difficulties.i.enum], start = 1):
-            MessageDisplay(text = str(score), position = (display_width*((8)/20),display_height*((13-1.1*number)/20)), text_size = 20)
+        for n, score in enumerate(highscore_difficulties.i.highscore):
+            MessageDisplay(text = str(score.score), position = (display_width*((8)/20),display_height*((12-1.1*n)/20)), text_size = 20)
+            MessageDisplay(text = score.scorer, position = (display_width*((11)/20),display_height*((12-1.1*n)/20)), text_size = 20)
 
         if highscore_difficulties.i !=  difficulties.easy:
             if CreateButton(x = buttons['ScoreLeft']['x'], y = buttons['ScoreLeft']['y'], width = buttons['ScoreLeft']['width'], height = buttons['ScoreLeft']['height'], text = '<'):
@@ -558,7 +571,7 @@ def GameLoop(game_start_speed = 100, pause = False, game_over = False, paused_ti
                     player_y_change = 0
 
         if game_over == True:
-            score_data, new_highscore = RecordScores(score = str(alive_time), difficulty = difficulty)
+            new_highscore = RecordScores(score = str(alive_time), difficulty = difficulty)
             if new_highscore == True:
                 Gameover(difficulty = difficulty, score_data = score_data, post_game_message = 'New Highscore...!')
             else:
