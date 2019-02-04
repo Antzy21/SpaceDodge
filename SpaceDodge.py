@@ -17,6 +17,9 @@
 
 # Display highscores on death screens
 
+# Clean up button class
+# Clean up TextOnBlock
+
 
 import pygame
 import time
@@ -108,13 +111,12 @@ class Difficulties:
     i = normal
 difficulties = Difficulties()
 
-def LoadScores():
-    score_data=[ [], [], [], [] ]
+def LoadScores(difficulties):
     try:
         scoresheet = open("scoresheet.txt", 'r')
     except:
         scoresheet = open("scoresheet.txt", 'w')
-        score_string = '0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n0.0\n'
+        score_string = '0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n'
         scoresheet.write(score_string)
         scoresheet.close()
         scoresheet = open("scoresheet.txt", 'r')
@@ -125,28 +127,22 @@ def LoadScores():
             x = re.split("\s",line,1)
             score = float(x[0])
             name = x[1]
-            score_data[mode.enum].append(score)
             mode.highscore.append(Highscore(score, name))
     scoresheet.close()
-    return score_data
-def SaveScores(score_data):
+    return difficulties
+difficulties = LoadScores(difficulties)
+def SaveScores(difficulties):
+    PrintDifficulty(difficulties)
     scoresheet = open("scoresheet.txt", 'w')
     score_string = ''
-    for mode in Difficulties():
+    for mode in difficulties:
         for score in mode.highscore:
             score_string += str(score.score) + ' ' + score.scorer + '\n'
     scoresheet.write(score_string)
-def RecordScores(score, difficulty):
-    new_highscore = False
-    difficulty.highscore.append(Highscore(float(score),'Z'))
-    print(difficulty.highscore)
+def RecordScore(score, name, difficulty):
+    difficulty.highscore.append(Highscore(score, name))
     difficulty.highscore.sort(key = lambda score : score.score)
-    print(difficulty.highscore)
     difficulty.highscore.pop(0)
-    print(difficulty.highscore)
-    if score_data[difficulty.enum][-2] == float(score):
-        new_highscore = True
-    return new_highscore
 
 def MessageDisplay(text = '"insert text"',text_size = 20, position = (display_width/2,display_height/2), colour = white):
     largeText = pygame.font.Font('freesansbold.ttf',text_size)
@@ -233,6 +229,9 @@ def CreateButton(button, colour = red, hover_colour = white, text = 'hello', tex
     else:
         pygame.draw.rect(game_display, colour, (button.x-button.width/2,button.y-button.height/2,button.width,button.height))
     MessageDisplay(text = text, position = (button.x, button.y), colour = text_colour)
+def TextOnBlock(coordinates, colour = red, text = '', text_colour = black):
+    pygame.draw.rect(game_display, colour, (coordinates.x-coordinates.width/2,coordinates.y-coordinates.height/2,coordinates.width,coordinates.height))
+    MessageDisplay(text = text, position = (coordinates.x, coordinates.y), colour = text_colour)
 
 def MainMenu(intro = True):
 
@@ -244,7 +243,7 @@ def MainMenu(intro = True):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                SaveScores(score_data)
+                SaveScores(difficulties)
                 quit()
 
         game_display.fill(black)
@@ -281,7 +280,7 @@ def Instructions(instructions = True):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                SaveScores(score_data)
+                SaveScores(difficulties)
                 quit()
 
         game_display.fill(black)
@@ -314,7 +313,7 @@ def Instructions(instructions = True):
         pygame.display.update()
         clock.tick(60)
     instructions = False
-def Highscores(highscore = True, highscore_difficulties = Difficulties()):
+def Highscores(highscore = True):
 
     # Initialise background things
     all_things = range(0,20)
@@ -324,7 +323,7 @@ def Highscores(highscore = True, highscore_difficulties = Difficulties()):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                SaveScores(score_data)
+                SaveScores(difficulties)
                 quit()
         game_display.fill(black)
 
@@ -337,20 +336,20 @@ def Highscores(highscore = True, highscore_difficulties = Difficulties()):
         pygame.draw.rect(game_display, black, [display_width*(4/20), display_height*(6/20), display_width*(12/20), display_height*(7/20)])
 
         MessageDisplay(text = 'Highscores', position = title, text_size = 50)
-        MessageDisplay(text = highscore_difficulties.i.name, text_size = 20, position = (display_width*(10/20),display_height*(6/20)))
+        MessageDisplay(text = difficulties.i.name, text_size = 20, position = (display_width*(10/20),display_height*(6/20)))
 
-        for n, score in enumerate(highscore_difficulties.i.highscore):
+        for n, score in enumerate(difficulties.i.highscore):
             MessageDisplay(text = str(score.score), position = (display_width*((8)/20),display_height*((12-1.1*n)/20)), text_size = 20)
             MessageDisplay(text = score.scorer, position = (display_width*((11)/20),display_height*((12-1.1*n)/20)), text_size = 20)
 
-        if highscore_difficulties.i !=  difficulties.easy:
+        if difficulties.i !=  difficulties.easy:
             if CreateButton(button = ScoreLeftButton, text = '<'):
-                highscore_difficulties.prev()
-                Highscores(highscore = True, highscore_difficulties = highscore_difficulties)
-        if highscore_difficulties.i !=  difficulties.diabolical:
+                difficulties.prev()
+                Highscores(highscore = True)
+        if difficulties.i !=  difficulties.diabolical:
             if CreateButton(button = ScoreRightButton, text = '>'):
-                highscore_difficulties.next()
-                Highscores(highscore = True, highscore_difficulties = highscore_difficulties)
+                difficulties.next()
+                Highscores(highscore = True)
 
         if CreateButton(button = MainMenuButton, text = 'Main Menu'):
             MainMenu()
@@ -368,7 +367,7 @@ def Credits(credits = True):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                SaveScores(score_data)
+                SaveScores(difficulties)
                 quit()
         game_display.fill(black)
 
@@ -395,7 +394,7 @@ def Credits(credits = True):
         pygame.display.update()
         clock.tick(60)
 
-def DifficultySelection(settings = True, singleplayer_difficulties = Difficulties()):
+def DifficultySelection(settings = True, singleplayer_difficulties = difficulties):
 
     # Initialise background things
     all_things = range(0,20)
@@ -405,7 +404,7 @@ def DifficultySelection(settings = True, singleplayer_difficulties = Difficultie
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                SaveScores(score_data)
+                SaveScores(difficulties)
                 quit()
         game_display.fill(black)
 
@@ -434,7 +433,7 @@ def DifficultySelection(settings = True, singleplayer_difficulties = Difficultie
         pygame.display.update()
         clock.tick(60)
 
-def MultiplayerDifficultySelection(settings = True, multiplayer_difficulties = Difficulties()):
+def MultiplayerDifficultySelection(settings = True, multiplayer_difficulties = difficulties):
 
     # Initialise background things
     all_things = range(0,20)
@@ -444,7 +443,7 @@ def MultiplayerDifficultySelection(settings = True, multiplayer_difficulties = D
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                SaveScores(score_data)
+                SaveScores(difficulties)
                 quit()
         game_display.fill(black)
 
@@ -523,11 +522,7 @@ def GameLoop(game_start_speed = 100, pause = False, game_over = False, paused_ti
                     player_y_change = 0
 
         if game_over == True:
-            new_highscore = RecordScores(score = str(alive_time), difficulty = difficulty)
-            if new_highscore == True:
-                Gameover(difficulty = difficulty, score_data = score_data, post_game_message = 'New Highscore...!')
-            else:
-                Gameover(difficulty = difficulty, score_data = score_data)
+            Gameover(difficulty, alive_time)
         else:
             if pause == False:
 
@@ -692,19 +687,50 @@ def MultiplayerGameLoop(game_start_speed = 100, pause = False, game_over = False
                     MainMenu()
                 pygame.display.update()
 
-def Gameover(difficulty, score_data, post_game_message = ''):
+def Gameover(difficulty, score):
     gameover = True
+    sufixes = ['st', 'nd', 'rd', 'th', 'th']
+
+    MessageDisplay('Game Over', text_size = 50, position = title, colour = cyan)
+
+    for n, highscore in enumerate(reversed(difficulty.highscore)):
+        if highscore.score < score:
+            TextOnBlock(NewHighscoreBlock, text = str(n+1)+str(sufixes[n])+' place!'+' : '+str(score), colour = black, text_colour = yellow)
+            MessageDisplay(text = 'New Highscore', position = (display_width*(1/2), display_height*(7/20)), colour = yellow)
+            MessageDisplay(text = 'Enter Name', position = (display_width*(1/2), display_height*(9/20)), colour = yellow)
+            needs_name = True
+            input = ''
+            while needs_name:
+                for event in pygame.event.get():
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_RETURN:
+                            if input != '': # Don't accept no name
+                                needs_name = False
+                        elif event.key == pygame.K_BACKSPACE:
+                            input = input[0:-1]
+                        elif len(input) < 7:
+                            if 48 <= event.key <= 57: # If it's a number
+                                input += chr(event.key)
+                            elif 97 <= event.key <= 122: # If it's a letter, make it a capital
+                                input += chr(event.key -32)
+                TextOnBlock(GOMainMenuButton)
+                spacedInput = ''
+                for x in input:
+                    spacedInput += x + ' '
+                TextOnBlock(InsertHighScore, text = spacedInput, colour = black, text_colour = red)
+                pygame.display.update()
+                clock.tick(30)
+            RecordScore(score, input, difficulty)
+            break
+
     while gameover:
-        MessageDisplay('Game Over', text_size = 50, position = title, colour = cyan)
 
-        if post_game_message != '':
-            pygame.draw.rect(game_display, black, (display_width*(6/20),display_height*(5.5/20),display_width*(6.5/20),display_height*(2/20)))
-            MessageDisplay(post_game_message, text_size = 20, position = (display_width*(10/20),display_height*(6.5/20)), colour = yellow)
+        TextOnBlock(NewHighscoreBlock, black)
 
-        if CreateButton(display_width/2, display_height*(4.5/10), display_height/2, display_width/10, text = 'Play Again (Enter)'):
+        if CreateButton(button = PlayAgainButton, text = 'Play Again (Enter)'):
             GameLoop(difficulty = difficulty)
 
-        if CreateButton(display_width/2, display_height*(6/10), display_width/2, display_width/10, text = 'Main Menu (Esc)'):
+        if CreateButton(button = GOMainMenuButton, text = 'Main Menu (Esc)'):
             MainMenu()
 
         pygame.display.update()
@@ -717,7 +743,7 @@ def Gameover(difficulty, score_data, post_game_message = ''):
                 if event.key == pygame.K_ESCAPE:
                     MainMenu()
             if event.type == pygame.QUIT:
-                SaveScores(score_data)
+                SaveScores(difficulties)
                 quit()
                 exit_game == True
 
@@ -739,10 +765,10 @@ def MultiplayerGameover(difficulty, loser, multiplayer_lives):
 
         MessageDisplay('Game Over', text_size = 50, position = title, colour = cyan)
 
-        if CreateButton(display_width/2, display_height*(4.5/10), display_height/2, display_width/10, text = 'Play Again (Enter)'):
+        if CreateButton(PlayAgainButton, text = 'Play Again (Enter)'):
             MultiplayerGameLoop(difficulty = difficulty, multiplayer_lives = [3,3])
 
-        if CreateButton(display_width/2, display_height*(6/10), display_width/2, display_width/10, text = 'Main Menu (Esc)'):
+        if CreateButton(GOMainMenuButton, text = 'Main Menu (Esc)'):
             MainMenu()
 
         # Yellow Score
@@ -760,24 +786,27 @@ def MultiplayerGameover(difficulty, loser, multiplayer_lives):
                 if event.key == pygame.K_ESCAPE:
                     MainMenu()
             if event.type == pygame.QUIT:
-                SaveScores(score_data)
+                SaveScores(difficulties)
                 quit()
                 exit_game == True
 
-score_data = LoadScores()
 s = space_between_buttons
 MainMenuButton     = Button(display_width *(10/20),     display_height *(13/20)+4*s, display_width *(12/20),  display_height *(2 /20))
 PlayButton         = Button(display_width *(10/20),     display_height *(9 /20),     display_width *(12/20),  display_height *(2 /20))
-HighscoreButton   = Button(display_width *(7/20)-s/2,  display_height *(11/20)+2*s, display_width *(6/20)-s, display_width *(2/20))
-ScoreLeftButton    = Button(display_width *(5/20),      display_height *(9/20),      display_width *(2/20),   display_width *(2/20))
-ScoreRightButton   = Button(display_width *(15/20),     display_height *(9/20),      display_width *(2/20),   display_width *(2/20))
-CreditsButton      = Button(display_width *(13/20)+s/2, display_height *(11/20)+2*s, display_width *(6/20)-s, display_width *(2/20))
-EasyButton         = Button(display_width *(7/20)-s/2,  display_height *(9/20),      display_width *(6/20)-s, display_width *(2/20))
-NormalButton       = Button(display_width *(13/20)+s/2, display_height *(9/20),      display_width *(6/20)-s, display_width *(2/20))
-HardButton         = Button(display_width *(7/20)-s/2,  display_height *(11/20)+2*s, display_width *(6/20)-s, display_width *(2/20))
-DiabolicalButton   = Button(display_width *(13/20)+s/2, display_height *(11/20)+2*s, display_width *(6/20)-s, display_width *(2/20))
+HighscoreButton    = Button(display_width *(7/20)-s/2,  display_height *(11/20)+2*s, display_width *(6/20)-s, display_height  *(2/20))
+ScoreLeftButton    = Button(display_width *(5/20),      display_height *(9/20),      display_width *(2/20),   display_height  *(2/20))
+ScoreRightButton   = Button(display_width *(15/20),     display_height *(9/20),      display_width *(2/20),   display_height  *(2/20))
+CreditsButton      = Button(display_width *(13/20)+s/2, display_height *(11/20)+2*s, display_width *(6/20)-s, display_height  *(2/20))
+EasyButton         = Button(display_width *(7/20)-s/2,  display_height *(9/20),      display_width *(6/20)-s, display_height  *(2/20))
+NormalButton       = Button(display_width *(13/20)+s/2, display_height *(9/20),      display_width *(6/20)-s, display_height  *(2/20))
+HardButton         = Button(display_width *(7/20)-s/2,  display_height *(11/20)+2*s, display_width *(6/20)-s, display_height  *(2/20))
+DiabolicalButton   = Button(display_width *(13/20)+s/2, display_height *(11/20)+2*s, display_width *(6/20)-s, display_height  *(2/20))
 InstructionsButton = Button(display_width *(7/20)-s/2,  display_height *(13/20)+4*s, display_width *(6/20)-s, display_height *(2 /20))
 MultiplayerButton  = Button(display_width *(13/20)+s/2, display_height *(13/20)+4*s, display_width *(6/20)-s, display_height *(2 /20))
 MplayButton        = Button(display_width *(10/20),     display_height *(11/20)+2*s, display_width *(12/20),  display_height *(2 /20))
+GOMainMenuButton   = Button(display_width *(10/20),     display_height *(12/20),     display_width *(10/20),  display_height  *(2/20))
+PlayAgainButton    = Button(display_width *(10/20),     display_height*(4.5/10),     display_width *(10/20),   display_height  *(2/20))
+InsertHighScore    = Button(display_width *(10/20),     display_height *(12/20),     display_width *(10/20)-2*s,  display_height *(2/20)-2*s)
+NewHighscoreBlock  = Button(display_width *(10/20),     display_height*(4/10),       display_width *(10/20),   display_height  *(4/20))
 
 MainMenu()
