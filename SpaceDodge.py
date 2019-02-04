@@ -11,11 +11,11 @@
 # Credits:
 # Tommy, Harley, Zoe, Gemma
 
-# Highscore
-# Include names
-# left and right arrows to navigate through difficulties
+# If times are equal, pick old one first
 
-# Display highscores on death screens
+# Different colour for multiplayer selection (blue)
+
+# Keyboard navigation all through the game
 
 # Clean up button class
 # Clean up TextOnBlock
