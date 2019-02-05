@@ -10,15 +10,20 @@
 
 # Credits:
 # Tommy, Harley, Zoe, Gemma
+# Clean up credits
 
 # If times are equal, pick old one first
 
 # Different colour for multiplayer selection (blue)
 
-# Keyboard navigation all through the game
-
 # Clean up button class
 # Clean up TextOnBlock
+
+# Use data storage module
+# Big overhaul for loading up data
+# Save data when new record is produced
+
+# pygame.quit() when on input name section needs sorting
 
 
 import pygame
