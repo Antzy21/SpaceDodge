@@ -469,6 +469,7 @@ def MultiplayerDifficultySelection(settings = True, multiplayer_difficulties = d
     # Initialise background things
     all_things = range(0,20)
     t = InitialiseThings(all_things)
+    lives = 3
 
     while settings == True:
         for event in pygame.event.get():
@@ -505,8 +506,16 @@ def MultiplayerDifficultySelection(settings = True, multiplayer_difficulties = d
                 multiplayer_difficulties.next()
         MessageDisplay(text = multiplayer_difficulties.i.name, text_size= 20, position= (display_width*(10/20),display_height*(9/20)))
 
+        if lives != 0:
+            if CreateButton(button = LivesLeftButton, text = '<'):
+                lives += -1
+        if lives != 20:
+            if CreateButton(button = LivesRightButton, text = '>'):
+                lives += 1
+        MessageDisplay(text = 'Lives: '+str(lives), text_size= 20, position= (display_width*(10/20),display_height*(11/20)+2*s))
+
         if CreateButton(button = MultiplayerButton, text = 'Play'):
-            MultiplayerGameLoop(difficulty = multiplayer_difficulties.i)
+            MultiplayerGameLoop(difficulty = multiplayer_difficulties.i, multiplayer_lives = [lives,lives])
 
         if CreateButton(button = InstructionsButton, text = 'Main Menu'):
             MainMenu()
@@ -602,7 +611,7 @@ def GameLoop(game_start_speed = 100, pause = False, game_over = False, paused_ti
                     MainMenu()
                 pygame.display.update()
 
-def MultiplayerGameLoop(game_start_speed = 100, pause = False, game_over = False, paused_time = 0, difficulty = difficulties.normal, multiplayer_lives = [2,2]):
+def MultiplayerGameLoop(game_start_speed = 100, pause = False, game_over = False, paused_time = 0, difficulty = difficulties.normal, multiplayer_lives = [3,3]):
     game_speed = game_start_speed
     start_time = time.time()
     exit_game = False
@@ -838,6 +847,8 @@ PlayButton         = Button(display_width *(10/20),     display_height *(9 /20),
 HighscoreButton    = Button(display_width *(7/20)-s/2,  display_height *(11/20)+2*s, display_width *(6/20)-s, display_height  *(2/20))
 ScoreLeftButton    = Button(display_width *(5/20),      display_height *(9/20),      display_width *(2/20),   display_height  *(2/20))
 ScoreRightButton   = Button(display_width *(15/20),     display_height *(9/20),      display_width *(2/20),   display_height  *(2/20))
+LivesLeftButton    = Button(display_width *(5/20),      display_height *(11/20)+2*s, display_width *(2/20),  display_height  *(2/20))
+LivesRightButton   = Button(display_width *(15/20),     display_height *(11/20)+2*s, display_width *(2/20),  display_height  *(2/20))
 CreditsButton      = Button(display_width *(13/20)+s/2, display_height *(11/20)+2*s, display_width *(6/20)-s, display_height  *(2/20))
 EasyButton         = Button(display_width *(7/20)-s/2,  display_height *(9/20),      display_width *(6/20)-s, display_height  *(2/20))
 NormalButton       = Button(display_width *(13/20)+s/2, display_height *(9/20),      display_width *(6/20)-s, display_height  *(2/20))
