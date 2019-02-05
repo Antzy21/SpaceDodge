@@ -226,13 +226,13 @@ def CreateButton(button, colour = red, hover_colour = white, text = 'hello', tex
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
     if button.x + button.width/2 > mouse[0] > button.x - button.width/2 and button.y + button.height/2 > mouse[1] > button.y - button.height/2:
-        pygame.draw.rect(game_display, hover_colour, (button.x-button.width/2,button.y-button.height/2,button.width,button.height))
+        TextOnBlock(button, colour = hover_colour, text = text, text_colour = text_colour)
         if click[0] == 1:
             time.sleep(0.2)
             # If the button has been clicked, return True so that when the function is called it can activate whatever action needs to be activated with whatever variables it needs!
             return(True)
     else:
-        pygame.draw.rect(game_display, colour, (button.x-button.width/2,button.y-button.height/2,button.width,button.height))
+        TextOnBlock(button, colour = colour, text = text, text_colour = text_colour)
     MessageDisplay(text = text, position = (button.x, button.y), colour = text_colour)
 def TextOnBlock(coordinates, colour = red, text = '', text_colour = black):
     pygame.draw.rect(game_display, colour, (coordinates.x-coordinates.width/2,coordinates.y-coordinates.height/2,coordinates.width,coordinates.height))
