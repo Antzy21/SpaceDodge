@@ -282,6 +282,9 @@ def Instructions(instructions = True):
                 pygame.quit()
                 SaveScores(difficulties)
                 quit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    MainMenu()
 
         game_display.fill(black)
 
@@ -325,6 +328,15 @@ def Highscores(highscore = True):
                 pygame.quit()
                 SaveScores(difficulties)
                 quit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    MainMenu()
+                elif event.key == pygame.K_LEFT:
+                    if difficulties.i != difficulties.easy:
+                        difficulties.prev()
+                elif event.key == pygame.K_RIGHT:
+                    if difficulties.i !=  difficulties.diabolical:
+                        difficulties.next()
         game_display.fill(black)
 
         # Have Things fly in background
@@ -369,6 +381,9 @@ def Credits(credits = True):
                 pygame.quit()
                 SaveScores(difficulties)
                 quit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    MainMenu()
         game_display.fill(black)
 
         # Have Things fly in background
@@ -406,6 +421,17 @@ def DifficultySelection(settings = True, singleplayer_difficulties = difficultie
                 pygame.quit()
                 SaveScores(difficulties)
                 quit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    MainMenu()
+                elif event.key == pygame.K_LEFT:
+                    if difficulties.i != difficulties.easy:
+                        difficulties.prev()
+                elif event.key == pygame.K_RIGHT:
+                    if difficulties.i !=  difficulties.diabolical:
+                        difficulties.next()
+                elif event.key == pygame.K_RETURN:
+                    GameLoop(difficulty = singleplayer_difficulties.i)
         game_display.fill(black)
 
         # Have Things fly in background
@@ -445,6 +471,17 @@ def MultiplayerDifficultySelection(settings = True, multiplayer_difficulties = d
                 pygame.quit()
                 SaveScores(difficulties)
                 quit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    MainMenu()
+                elif event.key == pygame.K_LEFT:
+                    if difficulties.i != difficulties.easy:
+                        difficulties.prev()
+                elif event.key == pygame.K_RIGHT:
+                    if difficulties.i !=  difficulties.diabolical:
+                        difficulties.next()
+                elif event.key == pygame.K_RETURN:
+                    GameLoop(difficulty = difficulties.i)
         game_display.fill(black)
 
         # Have Things fly in background
