@@ -15,6 +15,7 @@
 # If times are equal, pick old one first
 
 # Different colour for multiplayer selection (blue)
+# Establish draws for multiplayer
 
 # Clean up button class
 # Clean up TextOnBlock
