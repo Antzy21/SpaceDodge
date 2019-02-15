@@ -33,6 +33,7 @@ import random
 import math
 from enum import Enum
 import re
+import pickle
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -117,34 +118,18 @@ class Difficulties:
     i = normal
 difficulties = Difficulties()
 
-def LoadScores(difficulties):
+def LoadScores():
     try:
-        scoresheet = open("scoresheet.txt", 'r')
+        pickle_in = open("BinaryScoresheet.pickle","rb")
+        difficulties = pickle.load(pickle_in)
     except:
-        scoresheet = open("scoresheet.txt", 'w')
-        score_string = '0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n0.0 ?\n'
-        scoresheet.write(score_string)
-        scoresheet.close()
-        scoresheet = open("scoresheet.txt", 'r')
-    for mode in difficulties:
-        mode.highscore = []
-        for n in range(0,5):
-            line = scoresheet.readline().strip()
-            x = re.split("\s",line,1)
-            score = float(x[0])
-            name = x[1]
-            mode.highscore.append(Highscore(score, name))
-    scoresheet.close()
+        difficulties = Difficulties()
     return difficulties
 difficulties = LoadScores(difficulties)
 def SaveScores(difficulties):
-    PrintDifficulty(difficulties)
-    scoresheet = open("scoresheet.txt", 'w')
-    score_string = ''
-    for mode in difficulties:
-        for score in mode.highscore:
-            score_string += str(score.score) + ' ' + score.scorer + '\n'
-    scoresheet.write(score_string)
+    pickle_out = open("BinaryScoresheet.pickle","wb")
+    pickle.dump(difficulties, pickle_out)
+    pickle_out.close()
 def RecordScore(score, name, difficulty):
     difficulty.highscore.append(Highscore(score, name))
     difficulty.highscore.sort(key = lambda score : score.score)
