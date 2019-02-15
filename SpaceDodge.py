@@ -81,6 +81,34 @@ def RecordScore(score, name, difficulty):
     difficulty.highscore.append(Highscore(score, name))
     difficulty.highscore.sort(key = lambda score : score.score)
     difficulty.highscore.pop(0)
+def NewHighscore(n,score):
+    sufixes = ['st', 'nd', 'rd', 'th', 'th']
+    TextOnBlock(NewHighscoreBlock, text = str(n+1)+str(sufixes[n])+' place!'+' : '+str(score), colour = black, text_colour = yellow)
+    MessageDisplay(text = 'New Highscore', position = (display_width*(1/2), display_height*(7/20)), colour = yellow)
+    MessageDisplay(text = 'Enter Name', position = (display_width*(1/2), display_height*(9/20)), colour = yellow)
+    needs_name = True
+    input = ''
+    while needs_name:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    if input != '': # Don't accept no name
+                        needs_name = False
+                elif event.key == pygame.K_BACKSPACE:
+                    input = input[0:-1]
+                elif len(input) < 7:
+                    if 48 <= event.key <= 57: # If it's a number
+                        input += chr(event.key)
+                    elif 97 <= event.key <= 122: # If it's a letter, make it a capital
+                        input += chr(event.key -32)
+        TextOnBlock(GOMainMenuButton)
+        spacedInput = ''
+        for x in input:
+            spacedInput += x + ' '
+        TextOnBlock(InsertHighScore, text = spacedInput, colour = black, text_colour = red)
+        pygame.display.update()
+        clock.tick(30)
+    RecordScore(score, input, difficulties.i)
 
 def MessageDisplay(text = '"insert text"',text_size = 20, position = (display_width/2,display_height/2), colour = white):
     largeText = pygame.font.Font('freesansbold.ttf',text_size)
@@ -664,35 +692,13 @@ def Gameover(difficulty, score):
 
     MessageDisplay('Game Over', text_size = 50, position = title, colour = cyan)
 
-    for n, highscore in enumerate(reversed(difficulty.highscore)):
-        if highscore.score < score:
-            TextOnBlock(NewHighscoreBlock, text = str(n+1)+str(sufixes[n])+' place!'+' : '+str(score), colour = black, text_colour = yellow)
-            MessageDisplay(text = 'New Highscore', position = (display_width*(1/2), display_height*(7/20)), colour = yellow)
-            MessageDisplay(text = 'Enter Name', position = (display_width*(1/2), display_height*(9/20)), colour = yellow)
-            needs_name = True
-            input = ''
-            while needs_name:
-                for event in pygame.event.get():
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_RETURN:
-                            if input != '': # Don't accept no name
-                                needs_name = False
-                        elif event.key == pygame.K_BACKSPACE:
-                            input = input[0:-1]
-                        elif len(input) < 7:
-                            if 48 <= event.key <= 57: # If it's a number
-                                input += chr(event.key)
-                            elif 97 <= event.key <= 122: # If it's a letter, make it a capital
-                                input += chr(event.key -32)
-                TextOnBlock(GOMainMenuButton)
-                spacedInput = ''
-                for x in input:
-                    spacedInput += x + ' '
-                TextOnBlock(InsertHighScore, text = spacedInput, colour = black, text_colour = red)
-                pygame.display.update()
-                clock.tick(30)
-            RecordScore(score, input, difficulty)
-            break
+    if difficulties.i.highscore == []:
+        NewHighscore(n = 1, score = score)
+    else:
+        for n, highscore in enumerate(reversed(difficulties.i.highscore)):
+            if highscore.score < score:
+                NewHighscore(n, score)
+                break
 
     while gameover:
 
