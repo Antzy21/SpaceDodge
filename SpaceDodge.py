@@ -311,9 +311,9 @@ def Highscores(highscore = True):
         MessageDisplay(text = 'Highscores', position = title, text_size = 50)
         MessageDisplay(text = difficulties.i.name, text_size = 20, position = (display_width*(10/20),display_height*(6/20)))
 
-        for n, score in enumerate(difficulties.i.highscore):
-            MessageDisplay(text = str(score.score), position = (display_width*((8)/20),display_height*((12-1.1*n)/20)), text_size = 20)
-            MessageDisplay(text = score.scorer, position = (display_width*((11)/20),display_height*((12-1.1*n)/20)), text_size = 20)
+        for n, score in enumerate(reversed(difficulties.i.highscore)):
+            MessageDisplay(text = str(score.score), position = (display_width*((8)/20),display_height*((8+1.1*n)/20)), text_size = 20)
+            MessageDisplay(text = score.scorer, position = (display_width*((11)/20),display_height*((8+1.1*n)/20)), text_size = 20)
 
         if difficulties.i !=  difficulties.easy:
             if CreateButton(button = ScoreLeftButton, text = '<'):
