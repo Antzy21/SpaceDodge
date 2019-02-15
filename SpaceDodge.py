@@ -116,7 +116,6 @@ class Difficulties:
     hard = Difficulty(2,12,'Hard')
     diabolical = Difficulty(3,20,'Diabolical')
     i = normal
-difficulties = Difficulties()
 
 def LoadScores():
     try:
