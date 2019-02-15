@@ -66,59 +66,6 @@ player_speed = 2
 icon = pygame.image.load('starlogo.png')
 pygame.display.set_icon(icon)
 
-class Highscore:
-    def __init__(self, score, name):
-        self.score = score
-        self.scorer = name
-class Difficulty:
-    def __init__(self, enum, number_of_things, name):
-        self.enum = enum
-        self.numof_things = number_of_things
-        self.name = name
-        self.highscore = []
-class Difficulties:
-    def __iter__(self):
-        self.n = 0
-        return self
-    def __next__(self):
-        if self.n == 0:
-            self.n = self.easy
-        elif self.n == self.easy:
-            self.n = self.normal
-        elif self.n == self.normal:
-            self.n = self.hard
-        elif self.n == self.hard:
-            self.n = self.diabolical
-        else:
-            raise StopIteration
-        return self.n
-    def prev(self):
-        if self.i == self.hard:
-            self.i = self.normal
-        elif self.i == self.normal:
-            self.i = self.easy
-        elif self.i == self.diabolical:
-            self.i = self.hard
-        elif self.i == self.easy:
-            self.i = self.diabolical
-        return self.i
-    def next(self):
-        if self.i == self.easy:
-            self.i = self.normal
-        elif self.i == self.normal:
-            self.i = self.hard
-        elif self.i == self.hard:
-            self.i = self.diabolical
-        elif self.i == self.diabolical:
-            self.i = self.easy
-        return self.i
-    def __init__(self):
-        self.easy = Difficulty(0,4,'Easy')
-        self.normal = Difficulty(1,8,'Normal')
-        self.hard = Difficulty(2,12,'Hard')
-        self.diabolical = Difficulty(3,20,'Diabolical')
-        self.i = self.normal
-
 def LoadScores():
     try:
         pickle_in = open("BinaryScoresheet.pickle","rb")
@@ -203,12 +150,6 @@ def MoveThing(direction, x, y, w, h, speed, delay):
                 x = random.randrange(0,display_width-w)
             return x, y, delay
 
-class Button:
-    def __init__(self, x, y, width, height):
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
 def CreateButton(button, colour = red, hover_colour = white, text = 'hello', text_colour = black):
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
@@ -827,6 +768,66 @@ def MultiplayerGameover(difficulty, loser, multiplayer_lives):
                 SaveScores(difficulties)
                 quit()
                 exit_game == True
+
+class Highscore:
+    def __init__(self, score, name):
+        self.score = score
+        self.scorer = name
+class Difficulty:
+    def __init__(self, enum, number_of_things, name):
+        self.enum = enum
+        self.numof_things = number_of_things
+        self.name = name
+        self.highscore = []
+class Difficulties:
+    def __iter__(self):
+        self.n = 0
+        return self
+    def __next__(self):
+        if self.n == 0:
+            self.n = self.easy
+        elif self.n == self.easy:
+            self.n = self.normal
+        elif self.n == self.normal:
+            self.n = self.hard
+        elif self.n == self.hard:
+            self.n = self.diabolical
+        else:
+            raise StopIteration
+        return self.n
+    def prev(self):
+        if self.i == self.hard:
+            self.i = self.normal
+        elif self.i == self.normal:
+            self.i = self.easy
+        elif self.i == self.diabolical:
+            self.i = self.hard
+        elif self.i == self.easy:
+            self.i = self.diabolical
+        return self.i
+    def next(self):
+        if self.i == self.easy:
+            self.i = self.normal
+        elif self.i == self.normal:
+            self.i = self.hard
+        elif self.i == self.hard:
+            self.i = self.diabolical
+        elif self.i == self.diabolical:
+            self.i = self.easy
+        return self.i
+    def __init__(self):
+        self.easy = Difficulty(0,4,'Easy')
+        self.normal = Difficulty(1,8,'Normal')
+        self.hard = Difficulty(2,12,'Hard')
+        self.diabolical = Difficulty(3,20,'Diabolical')
+        self.i = self.normal
+
+class Button:
+    def __init__(self, x, y, width, height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
 
 s = space_between_buttons
 MainMenuButton     = Button(display_width *(10/20),     display_height *(13/20)+4*s, display_width *(12/20),  display_height *(2 /20))
