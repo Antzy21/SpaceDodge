@@ -848,10 +848,13 @@ PlayAgainButton    = Button(display_width *(10/20),     display_height*(4.5/10),
 InsertHighScore    = Button(display_width *(10/20),     display_height *(12/20),     display_width *(10/20)-2*s,  display_height *(2/20)-2*s)
 NewHighscoreBlock  = Button(display_width *(10/20),     display_height*(4/10),       display_width *(10/20),   display_height  *(4/20))
 
-def PrintDifficulty(difficulties):
+def PrintDifficulties(difficulties):
     for d in difficulties:
-        for h in d.highscore:
-            print(h.score, h.scorer)
-        print('')
+        PrintDifficulty(d)
+    print('i: ',vars(difficulties.i))
+def PrintDifficulty(difficulty):
+    print(vars(difficulty))
+    for h in difficulty.highscore:
+        print(h.score, h.scorer)
 
 MainMenu()
