@@ -73,7 +73,6 @@ def LoadScores():
     except:
         difficulties = Difficulties()
     return difficulties
-difficulties = LoadScores(difficulties)
 def SaveScores(difficulties):
     pickle_out = open("BinaryScoresheet.pickle","wb")
     pickle.dump(difficulties, pickle_out)
@@ -852,4 +851,5 @@ def PrintDifficulty(difficulty):
     for h in difficulty.highscore:
         print(h.score, h.scorer)
 
+difficulties = LoadScores()
 MainMenu()
