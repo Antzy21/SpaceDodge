@@ -420,7 +420,6 @@ def DifficultySelection(settings = True):
 
         pygame.display.update()
         clock.tick(60)
-
 def MultiplayerDifficultySelection(settings = True):
 
     # Initialise background things
@@ -479,7 +478,6 @@ def MultiplayerDifficultySelection(settings = True):
 
         pygame.display.update()
         clock.tick(60)
-
 def GameLoop(game_start_speed = 100, pause = False, game_over = False, paused_time = 0):
     game_speed = game_start_speed
     start_time = time.time()
@@ -567,7 +565,6 @@ def GameLoop(game_start_speed = 100, pause = False, game_over = False, paused_ti
                 if CreateButton(button = MainMenuButton, text = 'Main Menu'):
                     MainMenu()
                 pygame.display.update()
-
 def MultiplayerGameLoop(game_start_speed = 100, pause = False, game_over = False, paused_time = 0, multiplayer_lives = [3,3]):
     game_speed = game_start_speed
     start_time = time.time()
@@ -687,7 +684,6 @@ def MultiplayerGameLoop(game_start_speed = 100, pause = False, game_over = False
                 if CreateButton(button = MainMenuButton, text = 'Main Menu'):
                     MainMenu()
                 pygame.display.update()
-
 def Gameover(score):
     gameover = True
 
@@ -724,7 +720,6 @@ def Gameover(score):
                 SaveScores(difficulties)
                 quit()
                 exit_game == True
-
 def MultiplayerGameover(loser, multiplayer_lives):
 
     # If both players still have lives left
