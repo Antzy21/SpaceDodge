@@ -80,7 +80,8 @@ def SaveScores(difficulties):
 def RecordScore(score, name, difficulty):
     difficulty.highscore.append(Highscore(score, name))
     difficulty.highscore.sort(key = lambda score : score.score)
-    difficulty.highscore.pop(0)
+    if len(difficulty.highscore)>5:
+        difficulty.highscore.pop(0)
 def NewHighscore(n,score):
     sufixes = ['st', 'nd', 'rd', 'th', 'th']
     TextOnBlock(NewHighscoreBlock, text = str(n+1)+str(sufixes[n])+' place!'+' : '+str(score), colour = black, text_colour = yellow)
