@@ -544,10 +544,7 @@ def MultiplayerGameLoop(game_start_speed = 100, pause = False, game_over = False
     start_time = time.time()
     exit_game = False
 
-    # Possiblity for more than 2 players in future
-    numof_players = 2
-
-    all_things = range(0,difficulty.numof_things)
+    all_things = range(0,difficulties.i.numof_things)
 
     t = InitialiseThings(all_things)
 
@@ -555,7 +552,7 @@ def MultiplayerGameLoop(game_start_speed = 100, pause = False, game_over = False
     player_y = []
     player_x_change = []
     player_y_change = []
-    for n in range(0,numof_players):
+    for n in range(0,2):
         player_x.append(display_width * 0.5)
         player_y.append(display_height * 0.5)
         player_x_change.append(0)
@@ -584,16 +581,14 @@ def MultiplayerGameLoop(game_start_speed = 100, pause = False, game_over = False
                     player_y_change[0] = - player_speed
                 if event.key == pygame.K_DOWN:
                     player_y_change[0] =   player_speed
-
-                if numof_players == 2:
-                    if event.key == pygame.K_a:
-                        player_x_change[1] = - player_speed
-                    if event.key == pygame.K_d:
-                        player_x_change[1] =   player_speed
-                    if event.key == pygame.K_w:
-                        player_y_change[1] = - player_speed
-                    if event.key == pygame.K_s:
-                        player_y_change[1] =   player_speed
+                if event.key == pygame.K_a:
+                    player_x_change[1] = - player_speed
+                if event.key == pygame.K_d:
+                    player_x_change[1] =   player_speed
+                if event.key == pygame.K_w:
+                    player_y_change[1] = - player_speed
+                if event.key == pygame.K_s:
+                    player_y_change[1] =   player_speed
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT:
@@ -604,16 +599,14 @@ def MultiplayerGameLoop(game_start_speed = 100, pause = False, game_over = False
                     player_y_change[0] = 0
                 if event.key == pygame.K_DOWN:
                     player_y_change[0] = 0
-
-                if numof_players == 2:
-                    if event.key == pygame.K_a:
-                        player_x_change[1] = 0
-                    if event.key == pygame.K_d:
-                        player_x_change[1] = 0
-                    if event.key == pygame.K_w:
-                        player_y_change[1] = 0
-                    if event.key == pygame.K_s:
-                        player_y_change[1] = 0
+                if event.key == pygame.K_a:
+                    player_x_change[1] = 0
+                if event.key == pygame.K_d:
+                    player_x_change[1] = 0
+                if event.key == pygame.K_w:
+                    player_y_change[1] = 0
+                if event.key == pygame.K_s:
+                    player_y_change[1] = 0
 
         else:
             if pause == False:
@@ -625,7 +618,7 @@ def MultiplayerGameLoop(game_start_speed = 100, pause = False, game_over = False
                     t['x'][thing], t['y'][thing], t['delay'][thing] = MoveThing(t['direction'][thing], t['x'][thing], t['y'][thing], t['height'][thing], t['width'][thing], t['speed'][thing], t['delay'][thing])
                     DisplayThing(t['x'][thing], t['y'][thing], t['width'][thing], t['height'][thing], white)
 
-                for n in range(0,numof_players):
+                for n in range(0,2):
                     player_x[n] += player_x_change[n]
                     player_y[n] += player_y_change[n]
                     game_display.blit(player_image[n], (player_x[n],player_y[n]))
