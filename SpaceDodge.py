@@ -690,7 +690,7 @@ def Gameover(score):
     MessageDisplay('Game Over', text_size = 50, position = title, colour = cyan)
 
     if difficulties.i.highscore == []:
-        NewHighscore(n = 1, score = score)
+        NewHighscore(n = 0, score = score)
     else:
         for n, highscore in enumerate(reversed(difficulties.i.highscore)):
             if highscore.score < score:
