@@ -370,62 +370,11 @@ def Credits(credits = True):
         pygame.display.update()
         clock.tick(60)
 
-def DifficultySelection(settings = True, singleplayer_difficulties = difficulties):
+def DifficultySelection(settings = True):
 
     # Initialise background things
     all_things = range(0,20)
     t = InitialiseThings(all_things)
-
-    while settings == True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                SaveScores(difficulties)
-                quit()
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    MainMenu()
-                elif event.key == pygame.K_LEFT:
-                    if difficulties.i != difficulties.easy:
-                        difficulties.prev()
-                elif event.key == pygame.K_RIGHT:
-                    if difficulties.i !=  difficulties.diabolical:
-                        difficulties.next()
-                elif event.key == pygame.K_RETURN:
-                    GameLoop(difficulty = singleplayer_difficulties.i)
-        game_display.fill(black)
-
-        # Have Things fly in background
-        for thing in all_things:
-            t['x'][thing], t['y'][thing], t['delay'][thing] = MoveThing(t['direction'][thing], t['x'][thing], t['y'][thing], t['height'][thing], t['width'][thing], t['speed'][thing], t['delay'][thing])
-            DisplayThing(t['x'][thing], t['y'][thing], t['width'][thing], t['height'][thing], white)
-
-        MessageDisplay(text = 'Play', position = title, text_size = 50)
-        MessageDisplay(text = 'Choose Difficulty', text_size = 20, position = (display_width*(10/20),display_height*(6.5/20)))
-
-        if singleplayer_difficulties.i !=  difficulties.easy:
-            if CreateButton(button = ScoreLeftButton, text = '<'):
-                singleplayer_difficulties.prev()
-        if singleplayer_difficulties.i !=  difficulties.diabolical:
-            if CreateButton(button = ScoreRightButton, text = '>'):
-                singleplayer_difficulties.next()
-        MessageDisplay(text = singleplayer_difficulties.i.name, text_size= 20, position= (display_width*(10/20),display_height*(9/20)))
-
-        if CreateButton(button = MplayButton, text = 'Play'):
-            GameLoop(difficulty = singleplayer_difficulties.i)
-
-        if CreateButton(button = MainMenuButton, text = 'Main Menu'):
-            MainMenu()
-
-        pygame.display.update()
-        clock.tick(60)
-
-def MultiplayerDifficultySelection(settings = True, multiplayer_difficulties = difficulties):
-
-    # Initialise background things
-    all_things = range(0,20)
-    t = InitialiseThings(all_things)
-    lives = 3
 
     while settings == True:
         for event in pygame.event.get():
@@ -451,16 +400,68 @@ def MultiplayerDifficultySelection(settings = True, multiplayer_difficulties = d
             t['x'][thing], t['y'][thing], t['delay'][thing] = MoveThing(t['direction'][thing], t['x'][thing], t['y'][thing], t['height'][thing], t['width'][thing], t['speed'][thing], t['delay'][thing])
             DisplayThing(t['x'][thing], t['y'][thing], t['width'][thing], t['height'][thing], white)
 
+        MessageDisplay(text = 'Play', position = title, text_size = 50)
+        MessageDisplay(text = 'Choose Difficulty', text_size = 20, position = (display_width*(10/20),display_height*(6.5/20)))
+
+        if difficulties.i !=  difficulties.easy:
+            if CreateButton(button = ScoreLeftButton, text = '<'):
+                difficulties.prev()
+        if difficulties.i !=  difficulties.diabolical:
+            if CreateButton(button = ScoreRightButton, text = '>'):
+                difficulties.next()
+
+        MessageDisplay(text = difficulties.i.name, text_size= 20, position= (display_width*(10/20),display_height*(9/20)))
+
+        if CreateButton(button = MplayButton, text = 'Play'):
+            GameLoop()
+
+        if CreateButton(button = MainMenuButton, text = 'Main Menu'):
+            MainMenu()
+
+        pygame.display.update()
+        clock.tick(60)
+
+def MultiplayerDifficultySelection(settings = True):
+
+    # Initialise background things
+    all_things = range(0,20)
+    t = InitialiseThings(all_things)
+    lives = 3
+
+    while settings == True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                SaveScores(difficulties)
+                quit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    MainMenu()
+                elif event.key == pygame.K_LEFT:
+                    if difficulties.i != difficulties.easy:
+                        difficulties.prev()
+                elif event.key == pygame.K_RIGHT:
+                    if difficulties.i !=  difficulties.diabolical:
+                        difficulties.next()
+                elif event.key == pygame.K_RETURN:
+                    MultiplayerGameLoop(difficulty = difficulties.i)
+        game_display.fill(black)
+
+        # Have Things fly in background
+        for thing in all_things:
+            t['x'][thing], t['y'][thing], t['delay'][thing] = MoveThing(t['direction'][thing], t['x'][thing], t['y'][thing], t['height'][thing], t['width'][thing], t['speed'][thing], t['delay'][thing])
+            DisplayThing(t['x'][thing], t['y'][thing], t['width'][thing], t['height'][thing], white)
+
         MessageDisplay(text = 'Multiplayer', position = title, text_size = 50)
         MessageDisplay(text = 'Choose Difficulty', text_size = 20, position = (display_width*(10/20),display_height*(6.5/20)))
 
-        if multiplayer_difficulties.i !=  difficulties.easy:
+        if difficulties.i !=  difficulties.easy:
             if CreateButton(button = ScoreLeftButton, text = '<'):
-                multiplayer_difficulties.prev()
-        if multiplayer_difficulties.i !=  difficulties.diabolical:
+                difficulties.prev()
+        if difficulties.i !=  difficulties.diabolical:
             if CreateButton(button = ScoreRightButton, text = '>'):
-                multiplayer_difficulties.next()
-        MessageDisplay(text = multiplayer_difficulties.i.name, text_size= 20, position= (display_width*(10/20),display_height*(9/20)))
+                difficulties.next()
+        MessageDisplay(text = difficulties.i.name, text_size= 20, position= (display_width*(10/20),display_height*(9/20)))
 
         if lives != 0:
             if CreateButton(button = LivesLeftButton, text = '<'):
@@ -471,7 +472,7 @@ def MultiplayerDifficultySelection(settings = True, multiplayer_difficulties = d
         MessageDisplay(text = 'Lives: '+str(lives), text_size= 20, position= (display_width*(10/20),display_height*(11/20)+2*s))
 
         if CreateButton(button = MultiplayerButton, text = 'Play'):
-            MultiplayerGameLoop(difficulty = multiplayer_difficulties.i, multiplayer_lives = [lives,lives])
+            MultiplayerGameLoop(multiplayer_lives = [lives,lives])
 
         if CreateButton(button = InstructionsButton, text = 'Main Menu'):
             MainMenu()
@@ -479,12 +480,12 @@ def MultiplayerDifficultySelection(settings = True, multiplayer_difficulties = d
         pygame.display.update()
         clock.tick(60)
 
-def GameLoop(game_start_speed = 100, pause = False, game_over = False, paused_time = 0, difficulty = difficulties.normal):
+def GameLoop(game_start_speed = 100, pause = False, game_over = False, paused_time = 0):
     game_speed = game_start_speed
     start_time = time.time()
     exit_game = False
 
-    all_things = range(0, difficulty.numof_things)
+    all_things = range(0, difficulties.i.numof_things)
     t = InitialiseThings(all_things)
 
     player_x = display_width * 0.5
@@ -529,7 +530,7 @@ def GameLoop(game_start_speed = 100, pause = False, game_over = False, paused_ti
                     player_y_change = 0
 
         if game_over == True:
-            Gameover(difficulty, alive_time)
+            Gameover(alive_time)
         else:
             if pause == False:
 
@@ -567,7 +568,7 @@ def GameLoop(game_start_speed = 100, pause = False, game_over = False, paused_ti
                     MainMenu()
                 pygame.display.update()
 
-def MultiplayerGameLoop(game_start_speed = 100, pause = False, game_over = False, paused_time = 0, difficulty = difficulties.normal, multiplayer_lives = [3,3]):
+def MultiplayerGameLoop(game_start_speed = 100, pause = False, game_over = False, paused_time = 0, multiplayer_lives = [3,3]):
     game_speed = game_start_speed
     start_time = time.time()
     exit_game = False
@@ -656,14 +657,14 @@ def MultiplayerGameLoop(game_start_speed = 100, pause = False, game_over = False
                         game_over = True
                         loser = n
                         multiplayer_lives[n] -= 1
-                        MultiplayerGameover(difficulty, loser, multiplayer_lives)
+                        MultiplayerGameover(loser, multiplayer_lives)
                     #Crash into things
                     for thing in all_things:
                         if player_x[n] - t['width'][thing] < t['x'][thing] and t['x'][thing] < player_x[n] + player_width and player_y[n] - t['height'][thing] < t['y'][thing] and t['y'][thing] < player_y[n] + player_height:
                             game_over = True
                             loser = n
                             multiplayer_lives[n] -= 1
-                            MultiplayerGameover(difficulty, loser, multiplayer_lives)
+                            MultiplayerGameover(loser, multiplayer_lives)
 
                 alive_time = round(current_time-start_time-paused_time,1)
                 clock.tick(game_speed)
@@ -687,9 +688,8 @@ def MultiplayerGameLoop(game_start_speed = 100, pause = False, game_over = False
                     MainMenu()
                 pygame.display.update()
 
-def Gameover(difficulty, score):
+def Gameover(score):
     gameover = True
-    sufixes = ['st', 'nd', 'rd', 'th', 'th']
 
     MessageDisplay('Game Over', text_size = 50, position = title, colour = cyan)
 
@@ -706,7 +706,7 @@ def Gameover(difficulty, score):
         TextOnBlock(NewHighscoreBlock, black)
 
         if CreateButton(button = PlayAgainButton, text = 'Play Again (Enter)'):
-            GameLoop(difficulty = difficulty)
+            GameLoop(difficulty = difficulties.i)
 
         if CreateButton(button = GOMainMenuButton, text = 'Main Menu (Esc)'):
             MainMenu()
@@ -717,7 +717,7 @@ def Gameover(difficulty, score):
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    GameLoop(difficulty = difficulty)
+                    GameLoop(difficulty = difficulties.i)
                 if event.key == pygame.K_ESCAPE:
                     MainMenu()
             if event.type == pygame.QUIT:
@@ -725,7 +725,7 @@ def Gameover(difficulty, score):
                 quit()
                 exit_game == True
 
-def MultiplayerGameover(difficulty, loser, multiplayer_lives):
+def MultiplayerGameover(loser, multiplayer_lives):
 
     # If both players still have lives left
     if multiplayer_lives[0]!= 0 and multiplayer_lives[1]!=0:
@@ -736,7 +736,7 @@ def MultiplayerGameover(difficulty, loser, multiplayer_lives):
             MessageDisplay('Yellow Won!', text_size = 20, position = (display_width*(10/20),display_height*(6.5/20)), colour = yellow)
         pygame.display.update()
         time.sleep(1)
-        MultiplayerGameLoop(difficulty = difficulty, multiplayer_lives = multiplayer_lives)
+        MultiplayerGameLoop(multiplayer_lives = multiplayer_lives)
     gameover = True
 
     while gameover:
@@ -744,7 +744,7 @@ def MultiplayerGameover(difficulty, loser, multiplayer_lives):
         MessageDisplay('Game Over', text_size = 50, position = title, colour = cyan)
 
         if CreateButton(PlayAgainButton, text = 'Play Again (Enter)'):
-            MultiplayerGameLoop(difficulty = difficulty, multiplayer_lives = [3,3])
+            MultiplayerGameLoop(multiplayer_lives = [3,3])
 
         if CreateButton(GOMainMenuButton, text = 'Main Menu (Esc)'):
             MainMenu()
@@ -760,7 +760,7 @@ def MultiplayerGameover(difficulty, loser, multiplayer_lives):
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    MultiplayerGameLoop(difficulty = difficulty, multiplayer_lives = [3,3])
+                    MultiplayerGameLoop(multiplayer_lives = [3,3])
                 if event.key == pygame.K_ESCAPE:
                     MainMenu()
             if event.type == pygame.QUIT:
