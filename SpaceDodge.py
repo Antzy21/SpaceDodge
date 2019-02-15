@@ -75,6 +75,7 @@ class Difficulty:
         self.enum = enum
         self.numof_things = number_of_things
         self.name = name
+        self.highscore = []
 class Difficulties:
     def __iter__(self):
         self.n = 0
@@ -111,11 +112,12 @@ class Difficulties:
         elif self.i == self.diabolical:
             self.i = self.easy
         return self.i
-    easy = Difficulty(0,4,'Easy')
-    normal = Difficulty(1,8,'Normal')
-    hard = Difficulty(2,12,'Hard')
-    diabolical = Difficulty(3,20,'Diabolical')
-    i = normal
+    def __init__(self):
+        self.easy = Difficulty(0,4,'Easy')
+        self.normal = Difficulty(1,8,'Normal')
+        self.hard = Difficulty(2,12,'Hard')
+        self.diabolical = Difficulty(3,20,'Diabolical')
+        self.i = self.normal
 
 def LoadScores():
     try:
