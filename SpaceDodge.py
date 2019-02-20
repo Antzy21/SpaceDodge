@@ -392,7 +392,7 @@ def DifficultySelection(settings = True):
                     if difficulties.i !=  difficulties.diabolical:
                         difficulties.next()
                 elif event.key == pygame.K_RETURN:
-                    GameLoop(difficulty = difficulties.i)
+                    GameLoop()
         game_display.fill(black)
 
         # Have Things fly in background
@@ -443,7 +443,7 @@ def MultiplayerDifficultySelection(settings = True):
                     if difficulties.i !=  difficulties.diabolical:
                         difficulties.next()
                 elif event.key == pygame.K_RETURN:
-                    MultiplayerGameLoop(difficulty = difficulties.i)
+                    MultiplayerGameLoop()
         game_display.fill(black)
 
         # Have Things fly in background
@@ -702,7 +702,7 @@ def Gameover(score):
         TextOnBlock(NewHighscoreBlock, black)
 
         if CreateButton(button = PlayAgainButton, text = 'Play Again (Enter)'):
-            GameLoop(difficulty = difficulties.i)
+            GameLoop()
 
         if CreateButton(button = GOMainMenuButton, text = 'Main Menu (Esc)'):
             MainMenu()
@@ -713,7 +713,7 @@ def Gameover(score):
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    GameLoop(difficulty = difficulties.i)
+                    GameLoop()
                 if event.key == pygame.K_ESCAPE:
                     MainMenu()
             if event.type == pygame.QUIT:
