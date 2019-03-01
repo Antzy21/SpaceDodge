@@ -16,6 +16,7 @@
 
 # Different colour for multiplayer selection (blue)
 # Establish draws for multiplayer
+# Say who won overall after all lives lost
 
 # Clean up button class
 # Clean up TextOnBlock
@@ -24,6 +25,8 @@
 # Big overhaul for loading up data
 # Save data when new record is produced
 
+# make way of skipping insert highscore name
+# make milestones for highscores
 # pygame.quit() when on input name section needs sorting
 
 
