@@ -32,9 +32,6 @@
 import pygame
 import time
 import random
-import math
-from enum import Enum
-import re
 import pickle
 
 pygame.init()
