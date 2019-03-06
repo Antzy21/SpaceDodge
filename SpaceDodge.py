@@ -1,35 +1,33 @@
-## Achievements:
+# TODO: Achievements:
+#  90 seconds on easy: "One and a Half"
+#  60 seconds on normal: "Hang on a minute"
+#  45 seconds on hard: "You're hard"
+#  30 seconds on diabolical: "Did you see that?"
+#  Fill the score board: "Been there done that"
+#  Die in less than 1 seconds: "I can't even"
+#  View the credits 5 times: "Aww you care about me"
 
-# 90 seconds on easy: "One and a Half"
-# 60 seconds on normal: "Hang on a minute"
-# 45 seconds on hard: "You're hard"
-# 30 seconds on diabolical: "Did you see that?"
-# Fill the score board: "Been there done that"
-# Die in less than 1 seconds: "I can't even"
-# View the credits 5 times: "Aww you care about me"
+# TODO:  Credits:
+#  Tommy, Harley, Zoe, Gemma
+# TODO: Clean up credits
 
-# Credits:
-# Tommy, Harley, Zoe, Gemma
-# Clean up credits
+# TODO: If times are equal, pick old one first
 
-# If times are equal, pick old one first
+# TODO: Different colour for multiplayer selection (blue)
+# TODO: Establish draws for multiplayer
+# TODO: Say who won overall after all lives lost
+# TODO: Don't start round until both players have moved
 
-# Different colour for multiplayer selection (blue)
-# Establish draws for multiplayer
-# Say who won overall after all lives lost
-# Don't start round until both players have moved
+# TODO: Clean up button class
+# TODO: Clean up TextOnBlock
 
-# Clean up button class
-# Clean up TextOnBlock
+# TODO: Use data storage module
+# TODO: Big overhaul for loading up data
+# TODO: Save data when new record is produced
 
-# Use data storage module
-# Big overhaul for loading up data
-# Save data when new record is produced
-
-# make way of skipping insert highscore name
-# make milestones for highscores
-# pygame.quit() when on input name section needs sorting
-
+# TODO: Make way of skipping insert highscore name
+# TODO: Make milestones for highscores
+# TODO: pygame.quit() when on input name section needs sorting
 
 import pygame
 import time
