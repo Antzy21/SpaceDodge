@@ -2,3 +2,4 @@
 /dist/*
 *.xml
 .idea/SpaceDodge.iml
+/externalFiles/BinaryScoresheet.pickle

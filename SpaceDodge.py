@@ -56,18 +56,18 @@ yellow = (255, 255, 0)
 title = (display_width*(10/20), display_height*(4/20))
 
 # Load up players and details about players
-player_image = [pygame.image.load('star.png'), pygame.image.load('star2.png')]
+player_image = [pygame.image.load('images/star.png'), pygame.image.load('images/star2.png')]
 player_width = 11
 player_height = 11
 player_speed = 2
 
 # load up game icon
-icon = pygame.image.load('starlogo.png')
+icon = pygame.image.load('images/starlogo.png')
 pygame.display.set_icon(icon)
 
 def LoadScores():
     try:
-        pickle_in = open("BinaryScoresheet.pickle","rb")
+        pickle_in = open("externalFiles/BinaryScoresheet.pickle","rb")
         load_difficulties = pickle.load(pickle_in)
     except ValueError:
         load_difficulties = Difficulties()
