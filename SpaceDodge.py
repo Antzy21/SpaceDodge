@@ -69,7 +69,7 @@ def LoadScores():
     try:
         pickle_in = open("externalFiles/BinaryScoresheet.pickle","rb")
         load_difficulties = pickle.load(pickle_in)
-    except ValueError:
+    except (ValueError, OSError):
         load_difficulties = Difficulties()
     return load_difficulties
 def SaveScores():
@@ -132,7 +132,7 @@ def InitialiseThing(direction, height = 10, width = 10, speed = 2):
     else: # direction == 'down':
         x = random.randrange(0, display_width-width)
         y = -height
-    delay = random.randrange(0, (display_width+display_height)/4)
+    delay = random.randrange(0, (display_width+display_height)//4)
     return x, y, height, width, speed, direction, delay
 def InitialiseThings(all_things):
     direction_list = ['up','down','left','right']
